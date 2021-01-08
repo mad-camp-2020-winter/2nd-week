@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragment_info_detail"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:clickable="true"
+    tools:context=".InfoDetailFragment">
+
+    <ImageButton
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/info_detail_btn"
+        android:src="@drawable/phone"
+        />
+
+    <TextView
+        android:id="@+id/info_detail_institution_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="사무소 이름"
+        android:textSize="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        />
+    
+    <TextView
+        android:id="@+id/info_detail_institution_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="사무소 주소"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:id="@+id/info_detail_institution_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="사무소 번호"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        />
+
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:id="@+id/info_detail_photo"/>
+
+
+
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.example.rentalservice;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,10 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rentalservice.models.Institution;
 import com.google.gson.annotations.SerializedName;
 
 import org.json.JSONObject;
@@ -56,81 +59,52 @@ public class InfoFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-        PostResult postResult = new PostResult();
 
-        Call<List<PostResult>> call = retrofitAPI.getretrofitdata();
-        call.enqueue(new Callback<List<PostResult>>() {
+        Call<List<Institution>> call = retrofitAPI.getInstitution();
+        call.enqueue(new Callback<List<Institution>>() {
             @Override
-            public void onResponse(Call<List<PostResult>> call, Response<List<PostResult>> response) {
+            public void onResponse(Call<List<Institution>> call, Response<List<Institution>> response) {
                 if(response.isSuccessful()){
-                    List<PostResult> postResults = response.body();
-                    TextView textView = v.findViewById(R.id.test_box);
+                    List<Institution> institutions = response.body();
                     int i = 0;
                     String content = "";
-                    while(i < postResults.size()) {
+                    while(i < institutions.size()) {
                         ListViewItem item = new ListViewItem();
-                        item.setInstitution_name(postResults.get(i).getName());
-                        item.setInstitution_number(postResults.get(i).getNumber());
-                        item.setInstitution_location(postResults.get(i).getLocation());
-                        adapter.addItem(item.getInstitution_name(),item.getInstitution_number(),item.getInstitution_location());
+                        item.setInstitution_id(institutions.get(i).get_id());
+                        item.setInstitution_name(institutions.get(i).getName());
+                        item.setInstitution_number(institutions.get(i).getNumber());
+                        item.setInstitution_location(institutions.get(i).getLocation());
+                        adapter.addItem(item);
                         i++;
                     }
-                    textView.setText(content);
                 }
             }
-
             @Override
-            public void onFailure(Call<List<PostResult>> call, Throwable t) {
+            public void onFailure(Call<List<Institution>> call, Throwable t) {
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ListViewItem item = (ListViewItem) parent.getItemAtPosition(position);
+
+                String item_id = item.getInstitution_id();
+                String item_name = item.getInstitution_name();
+                String item_number = item.getInstitution_number();
+                String item_location = item.getInstitution_location();
+
+                MainActivity mainActivity = (MainActivity) getActivity();
+                System.out.println(mainActivity);
+                mainActivity.FragmentChange(1, item);
+
 
             }
         });
 
-//        Call<PostResult> call = retrofitAPI.getretrofitdata();
-//        call.enqueue(new Callback<PostResult>() {
-//            @Override
-//            public void onResponse(Call<PostResult> call, Response<PostResult> response) {
-//                if(response.isSuccessful()){
-//                    PostResult postResponse = response.body();
-//                    TextView textView = v.findViewById(R.id.test_box);
-//                    String content = "";
-//                    content += "Name: " + postResponse.getName() + "\n";
-//                    content += "Number: " + postResponse.getNumber() + "\n";
-//                    content += "Location: " + postResponse.getLocation() + "\n";
-//                     textView.setText(content);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<PostResult> call, Throwable t) {
-//                TextView textView = v.findViewById(R.id.test_box);
-//                textView.setText(t.getMessage());
-//            }
-//        });
-
-
         return v;
     }
 
-    public class PostResult{
-        @SerializedName("name")
-        private String name;
-        @SerializedName("number")
-        private String number;
-        @SerializedName("location")
-        private String location;
 
-        public String getName(){ return name; }
-        public String getNumber(){ return number; }
-        public String getLocation(){ return location; }
-
-        public void setName(String name){this.name = name;}
-        public void setNumber(String number){this.number = number;}
-        public void setLocation(String location){this.location = location;}
-    }
-
-    public interface RetrofitAPI {
-        @GET("/api/institutions")
-        Call<List<PostResult>> getretrofitdata();
-    }
 
 }

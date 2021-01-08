@@ -50,13 +50,7 @@ public class ListViewAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void addItem(String name, String number, String location){
-        ListViewItem item = new ListViewItem();
-
-        item.setInstitution_name(name);
-        item.setInstitution_number(number);
-        item.setInstitution_location(location);
-
+    public void addItem(ListViewItem item){
         listViewItems.add(item);
         notifyDataSetChanged();
     }

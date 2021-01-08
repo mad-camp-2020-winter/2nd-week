@@ -6,6 +6,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,14 +31,21 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        FloatingActionButton fab = findViewById(R.id.fab);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
+
+    public void FragmentChange(int index, ListViewItem listViewItem){
+        InfoDetailFragment infoDetailFragment = new InfoDetailFragment(listViewItem);
+        InfoFragment infoFragment = new InfoFragment();
+
+        if(index == 0){
+            getSupportFragmentManager().beginTransaction().remove(infoDetailFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_info_detail, infoFragment).commit();
+        }
+        else if(index == 1){
+            getSupportFragmentManager().beginTransaction().remove(infoFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_info, infoDetailFragment).commit();
+        }
+    }
+
 }
