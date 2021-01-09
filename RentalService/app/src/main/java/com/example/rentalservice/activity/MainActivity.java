@@ -20,7 +20,6 @@ import android.view.View;
 
 import com.example.rentalservice.ui.main.SectionsPagerAdapter;
 
-import org.conscrypt.Conscrypt;
 
 import java.security.Security;
 
