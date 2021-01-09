@@ -6,8 +6,6 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.os.TestLooperManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,8 +14,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.SearchView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.rentalservice.ListViewItem;
 import com.example.rentalservice.R;
@@ -28,12 +24,7 @@ import com.example.rentalservice.adapter.ListViewAdapter;
 import com.example.rentalservice.api.RetrofitAPI;
 import com.example.rentalservice.models.Institution;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.JsonObject;
-import com.google.gson.annotations.SerializedName;
 
-import org.json.JSONObject;
-
-import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -41,12 +32,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
-import retrofit2.http.FieldMap;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 import static android.app.Activity.RESULT_FIRST_USER;
 import static android.app.Activity.RESULT_OK;
@@ -68,7 +53,7 @@ public class InfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_info, container, false);
+        View v = inflater.inflate(R.layout.admin_fragment_info, container, false);
         listView = v.findViewById(R.id.institution_list);
         adapter = new ListViewAdapter();
         listView.setAdapter(adapter);

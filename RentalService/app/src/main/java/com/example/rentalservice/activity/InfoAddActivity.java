@@ -1,7 +1,5 @@
 package com.example.rentalservice.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +18,7 @@ public class InfoAddActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_info_add);
+        setContentView(R.layout.admin_activity_info_add);
 
         EditText inst_name = findViewById(R.id.info_add_institution_name);
         EditText inst_location = findViewById(R.id.info_add_institution_location);

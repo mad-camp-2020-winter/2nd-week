@@ -24,6 +24,7 @@
             android:value="@string/facebook_app_id" />
 
         <activity android:name=".activity.InfoEditActivity" />
+        <activity android:name=".activity.GalleryAddActivity"/>
         <activity
             android:name=".activity.InfoAddActivity"
             android:theme="@android:style/Theme.Dialog" />

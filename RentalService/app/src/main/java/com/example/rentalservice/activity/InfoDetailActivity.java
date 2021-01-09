@@ -1,7 +1,6 @@
 package com.example.rentalservice.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,11 +11,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.rentalservice.ListViewItem;
 import com.example.rentalservice.R;
 import com.example.rentalservice.adapter.GalleryAdapter;
 import com.example.rentalservice.api.RetrofitAPI;
-import com.example.rentalservice.models.Institution;
 import com.example.rentalservice.models.Item;
 
 import java.util.ArrayList;
@@ -33,13 +30,15 @@ public class InfoDetailActivity extends AppCompatActivity {
     private ArrayList<Item> mArrayList = new ArrayList<Item>();
     private GalleryAdapter mAdapter;
 
+    //갤러리 추가 액티비티에 넘겨줄 변수
+    private String _id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_info_detail);
+        setContentView(R.layout.admin_activity_info_detail);
         Intent i = getIntent();
 
-        String _id = i.getStringExtra("id");
+        _id = i.getStringExtra("id");
         String name = i.getStringExtra("name");
         String number = i.getStringExtra("number");
         String location = i.getStringExtra("location");
@@ -84,7 +83,7 @@ public class InfoDetailActivity extends AppCompatActivity {
                         item.setName(items.get(i).getName());
                         item.set_id(items.get(i).get_id());
                         item.setPhoto(items.get(i).getPhoto());
-                        item.setInstitution_id(items.get(i).getInstitution_id());
+//                        item.setInstitution_id(items.get(i).getInstitution_id()); //이미 같은 기관거 받아오니까 필요없음
                         mAdapter.addItem(item);
                         i++;
                     }
@@ -92,6 +91,17 @@ public class InfoDetailActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<List<Item>> call, Throwable t) {
+            }
+        });
+
+        //+버튼 클릭시 사진 추가 액티비티로 넘어감
+        ImageView addButton = (ImageView) findViewById(R.id.info_detail_add_photo);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(InfoDetailActivity.this,GalleryAddActivity.class);
+                intent.putExtra("institution_id", _id);
+                startActivity(intent);
             }
         });
     }

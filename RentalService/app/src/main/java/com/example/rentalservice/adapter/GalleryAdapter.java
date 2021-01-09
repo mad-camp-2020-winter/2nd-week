@@ -4,19 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.graphics.Point;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.rentalservice.ListViewItem;
 import com.example.rentalservice.R;
 import com.example.rentalservice.models.Item;
 
@@ -52,7 +49,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.CustomVi
     public CustomViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.activity_info_gallery, viewGroup, false);
+                .inflate(R.layout.admin_activity_info_gallery, viewGroup, false);
 
         context = view.getContext();
         CustomViewHolder viewHolder = new CustomViewHolder(view);
@@ -71,7 +68,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.CustomVi
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
 
         viewholder.name.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-        viewholder.count.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        viewholder.count.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
         viewholder.photo.setLayoutParams(params);
 
         viewholder.name.setGravity(Gravity.CENTER);

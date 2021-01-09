@@ -15,7 +15,7 @@ public class InfoEditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_info_edit);
+        setContentView(R.layout.admin_activity_info_edit);
 
         Intent i = getIntent();
         String id = i.getStringExtra("id");
