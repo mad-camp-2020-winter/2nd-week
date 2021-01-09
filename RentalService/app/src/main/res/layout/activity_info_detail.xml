@@ -65,12 +65,14 @@
             />
     </LinearLayout>
 
-    <GridView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/gallery_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/info_detail_photo">
-
-    </GridView>
+        android:scrollbarFadeDuration="0"
+        android:scrollbarSize="5dp"
+        android:scrollbarThumbVertical="@android:color/darker_gray"
+        android:scrollbars="vertical"/>
 
 
 
