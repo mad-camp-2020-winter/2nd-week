@@ -6,6 +6,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,18 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void FragmentChange(int index, ListViewItem listViewItem){
-        InfoDetailFragment infoDetailFragment = new InfoDetailFragment(listViewItem);
-        InfoFragment infoFragment = new InfoFragment();
 
-        if(index == 0){
-            getSupportFragmentManager().beginTransaction().remove(infoDetailFragment).commit();
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_info_detail, infoFragment).commit();
-        }
-        else if(index == 1){
-            getSupportFragmentManager().beginTransaction().remove(infoFragment).commit();
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_info, infoDetailFragment).commit();
-        }
-    }
 
 }
