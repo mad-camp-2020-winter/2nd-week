@@ -1,4 +1,4 @@
-package com.example.rentalservice;
+package com.example.rentalservice.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +19,13 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rentalservice.ListViewItem;
+import com.example.rentalservice.R;
+import com.example.rentalservice.activity.InfoAddActivity;
+import com.example.rentalservice.activity.InfoDetailActivity;
+import com.example.rentalservice.activity.InfoEditActivity;
+import com.example.rentalservice.adapter.ListViewAdapter;
+import com.example.rentalservice.api.RetrofitAPI;
 import com.example.rentalservice.models.Institution;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.JsonObject;
@@ -150,7 +157,7 @@ public class InfoFragment extends Fragment {
                 String item_number = item.getInstitution_number();
                 String item_location = item.getInstitution_location();
 
-                Intent i = new Intent(getContext(),InfoDetailActivity.class);
+                Intent i = new Intent(getContext(), InfoDetailActivity.class);
                 i.putExtra("id", item_id);
                 i.putExtra("name", item_name);
                 i.putExtra("number", item_number);
@@ -173,7 +180,7 @@ public class InfoFragment extends Fragment {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.info_edit:
-                                Intent intent = new Intent(getContext(),InfoEditActivity.class);
+                                Intent intent = new Intent(getContext(), InfoEditActivity.class);
                                 ListViewItem listViewItem = (ListViewItem) adapter.getItem(position);
                                 intent.putExtra("position",position);
                                 intent.putExtra("id",listViewItem.getInstitution_id());

@@ -1,4 +1,4 @@
-package com.example.rentalservice;
+package com.example.rentalservice.api;
 
 import com.example.rentalservice.models.Institution;
 

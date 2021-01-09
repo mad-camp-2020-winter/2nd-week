@@ -1,4 +1,4 @@
-package com.example.rentalservice;
+package com.example.rentalservice.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.rentalservice.R;
 
 public class InfoEditActivity extends AppCompatActivity {
 
