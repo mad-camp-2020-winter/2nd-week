@@ -54,13 +54,13 @@ public class GalleryAddActivity extends Activity {
                 Resources res= getResources();
 
                 Bitmap bitmap = null;
-//                try {
-//                    bitmap = MediaStore.Images.Media.getBitmap(GalleryAddActivity.this.getContentResolver(), selectedImageUri);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(GalleryAddActivity.this.getContentResolver(), selectedImageUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 //test용
-                bitmap =  BitmapFactory.decodeResource(res, R.drawable.contruction);
+//                bitmap =  BitmapFactory.decodeResource(res, R.drawable.contruction);
                 Bitmap bmpCompressed = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
                 bmpCompressed.compress(Bitmap.CompressFormat.PNG, 100, outStream);
 
@@ -94,7 +94,7 @@ public class GalleryAddActivity extends Activity {
 
         if (requestCode == GET_GALLERY_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
-            Uri selectedImageUri = data.getData();
+            selectedImageUri = data.getData();
             imageview.setImageURI(selectedImageUri);
 
         }

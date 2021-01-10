@@ -101,6 +101,14 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        join.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoginActivity.this, JoinActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     @Override

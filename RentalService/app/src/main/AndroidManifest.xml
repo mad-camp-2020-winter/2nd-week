@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RentalService">
-        <activity android:name=".activity.UserRentalSelectActivity"></activity>
+        <activity android:name=".activity.JoinActivity"></activity>
+        <activity android:name=".activity.UserRentalSelectActivity" />
         <activity android:name=".activity.UserInfoDetailActivity" />
         <activity android:name=".activity.LoginActivity">
             <intent-filter>
