@@ -2,6 +2,7 @@ package com.example.rentalservice.api;
 
 import com.example.rentalservice.models.Institution;
 import com.example.rentalservice.models.Item;
+import com.example.rentalservice.models.Login;
 
 import java.util.List;
 
@@ -37,6 +38,16 @@ public interface RetrofitAPI {
         Call<Item> putItem(@Path("id") String id, @Body Item item);
         @DELETE("/item/{id}")
         Call<Void> deleteItem(@Path("id") String id);
+
+        //LOGIN
+        @GET("/login")
+        Call<Login> getLogin();
+        @GET("/login/id/{id}")
+        Call<List<Login>> getLoginById(@Path("id") String id);
+        @POST("/login")
+        Call<Login> createLogin(@Body Login login);
+        @PUT("/login/{id}")
+        Call<Login> putLogin(@Path("id") String id, @Body Login login);
 
 
 }
