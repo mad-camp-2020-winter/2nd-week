@@ -16,7 +16,6 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.rentalservice.ListViewItem;
 import com.example.rentalservice.R;
 import com.example.rentalservice.adapter.GalleryAdapter;
 import com.example.rentalservice.api.RetrofitAPI;
@@ -115,55 +114,6 @@ public class InfoDetailActivity extends AppCompatActivity implements GalleryAdap
             }
         });
 
-        // 길게 누르면 팝업
-//        mRecyclerView.onItemlong
-//
-//        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//                PopupMenu popupMenu = new PopupMenu(getContext(), view);
-//                popupMenu.getMenuInflater().inflate(R.menu.popup_info, popupMenu.getMenu());
-//                popupMenu.show();
-//                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//                    @Override
-//                    public boolean onMenuItemClick(MenuItem item) {
-//                        switch (item.getItemId()){
-//                            case R.id.info_edit:
-//                                Intent intent = new Intent(getContext(), InfoEditActivity.class);
-//                                ListViewItem listViewItem = (ListViewItem) adapter.getItem(position);
-//                                intent.putExtra("position",position);
-//                                intent.putExtra("id",listViewItem.getInstitution_id());
-//                                intent.putExtra("name",listViewItem.getInstitution_name());
-//                                intent.putExtra("number",listViewItem.getInstitution_number());
-//                                intent.putExtra("location",listViewItem.getInstitution_location());
-//                                startActivityForResult(intent,2);
-//                                break;
-//                            case R.id.info_delete:
-//                                ListViewItem item2 = (ListViewItem) adapter.getItem(position);
-//                                Call<Void> call2 = retrofitAPI.deleteInstitution(item2.getInstitution_id());
-//                                call2.enqueue(new Callback<Void>() {
-//                                    @Override
-//                                    public void onResponse(Call<Void> call, Response<Void> response) {
-//                                        if(response.isSuccessful()){
-//                                            adapter.removeItem(position);
-//                                            listView.setAdapter(adapter);
-//                                        }
-//                                    }
-//
-//                                    @Override
-//                                    public void onFailure(Call<Void> call, Throwable t) {
-//
-//                                    }
-//                                });
-//                                break;
-//                        }
-//                        return true;
-//                    }
-//                });
-//                return true;
-//
-//            }
-//        });
     }
 
     @Override
@@ -173,10 +123,6 @@ public class InfoDetailActivity extends AppCompatActivity implements GalleryAdap
             String name = data.getStringExtra("name");
             String count = data.getStringExtra("count");
             String photo = data.getStringExtra("photo");
-//            Institution institution = new Institution();
-//            institution.setName(name);
-//            institution.setLocation(location);
-//            institution.setNumber(number);
             Item item = new Item();
             item.setInstitution_id(institution_id);
             item.setName(name);
@@ -214,54 +160,108 @@ public class InfoDetailActivity extends AppCompatActivity implements GalleryAdap
 
         }
         else if(resultCode == RESULT_OK){
-//            System.out.println("1");
-//            super.onActivityResult(requestCode, resultCode, data);
-//            String id = data.getStringExtra("id");
-//            String name = data.getStringExtra("name");
-//            String location = data.getStringExtra("location");
-//            String number = data.getStringExtra("number");
-//            int position = data.getIntExtra("position", 0);
-//            Institution institution = new Institution();
-//            institution.set_id(id);
-//            institution.setName(name);
-//            institution.setLocation(location);
-//            institution.setNumber(number);
-//
-//            Retrofit retrofit = new Retrofit.Builder()
-//                    .baseUrl("http://192.249.18.173:8080")
-//                    .addConverterFactory(GsonConverterFactory.create())
-//                    .build();
-//            RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-//            Call<Institution> call = retrofitAPI.putInstitution(id,institution);
-//            call.enqueue(new Callback<Institution>() {
-//                @Override
-//                public void onResponse(Call<Institution> call, Response<Institution> response) {
-//                    if(response.isSuccessful()){
-//                        ListViewItem item = (ListViewItem) adapter.getItem(position);
-//                        item.setInstitution_name(name);
-//                        item.setInstitution_number(number);
-//                        item.setInstitution_location(location);
-//                        adapter.notifyDataSetChanged();
-//                        listView.setAdapter(adapter);
-//                    }
-//                }
-//                @Override
-//                public void onFailure(Call<Institution> call, Throwable t) {
-//                }
-//            });
+            System.out.println("1");
+            super.onActivityResult(requestCode, resultCode, data);
+            String id = data.getStringExtra("id");
+            String name = data.getStringExtra("name");
+            String photo = data.getStringExtra("photo");
+
+            String count = data.getStringExtra("count");
+            int position = data.getIntExtra("position", 0);
+            Item editItem = new Item();
+            editItem.set_id(id);
+            editItem.setPhoto(photo);
+            editItem.setCount(count);
+            editItem.setName(name);
+            editItem.setInstitution_id(mAdapter.getItem(position).getInstitution_id());
+
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("http://192.249.18.173:8080")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+            Call<Item> call = retrofitAPI.putItem(id,editItem);
+            call.enqueue(new Callback<Item>() {
+                @Override
+                public void onResponse(Call<Item> call, Response<Item> response) {
+                    if(response.isSuccessful()){
+                        Item newItem = (Item) mAdapter.getItem(position);
+                        newItem.set_id(id);
+                        newItem.setPhoto(photo);
+                        newItem.setCount(count);
+                        newItem.setName(name);
+                        newItem.setInstitution_id(mAdapter.getItem(position).getInstitution_id());
+
+                        mAdapter.notifyDataSetChanged();
+                        mRecyclerView.setAdapter(mAdapter);
+                    }
+                }
+                @Override
+                public void onFailure(Call<Item> call, Throwable t) {
+                }
+            });
         }
     }
 
     @Override
     public void onItemLongSelected(View v, int position) {
-        GalleryAdapter.CustomViewHolder viewHolder = (GalleryAdapter.CustomViewHolder) mRecyclerView.findViewHolderForAdapterPosition(position);
-        Toast.makeText(this, position + " clicked",Toast.LENGTH_SHORT).show();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.249.18.173:8080")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+
+        PopupMenu popupMenu = new PopupMenu(InfoDetailActivity.this, v);
+        popupMenu.getMenuInflater().inflate(R.menu.popup_info, popupMenu.getMenu());
+        popupMenu.show();
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.info_edit:
+                        Intent intent = new Intent(InfoDetailActivity.this, GalleryEditActivity.class);
+                        Item editItem = (Item) mAdapter.getItem(position);
+                        intent.putExtra("position",position);
+                        intent.putExtra("id",editItem.get_id());
+                        intent.putExtra("name",editItem.getName());
+                        intent.putExtra("count",editItem.getCount());
+                        intent.putExtra("photo",editItem.getPhoto());
+                        startActivityForResult(intent,2);
+                        break;
+                    case R.id.info_delete:
+                        Item item2 = (Item) mAdapter.getItem(position);
+                        Call<Void> call2 = retrofitAPI.deleteItem(item2.get_id());
+                        call2.enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                if(response.isSuccessful()){
+                                    mAdapter.removeItem(position);
+                                    mRecyclerView.setAdapter(mAdapter);
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+
+                            }
+                        });
+                        break;
+                }
+                return true;
+            }
+        });
+//        Item item = mAdapter.getItem(position);
+//        Intent intent = new Intent(this, UserRentalSelectActivity.class);
+//        intent.putExtra("item_name", item.getName());
+//        intent.putExtra("item_count", item.getCount());
+//        intent.putExtra("item_photo", item.getPhoto());
+//        startActivityForResult(intent, 2);
     }
 
     @Override
     public void onItemSelected(View v, int position) {
         GalleryAdapter.CustomViewHolder viewHolder = (GalleryAdapter.CustomViewHolder) mRecyclerView.findViewHolderForAdapterPosition(position);
         Toast.makeText(this, position + " clicked",Toast.LENGTH_SHORT).show();
-
     }
 }

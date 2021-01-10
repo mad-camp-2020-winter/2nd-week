@@ -139,4 +139,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.CustomVi
         return item;
     }
 
+    public void removeItem(int position){
+        mList.remove(position);
+    }
 }
