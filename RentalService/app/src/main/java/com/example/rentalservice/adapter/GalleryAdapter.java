@@ -134,5 +134,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.CustomVi
         notifyDataSetChanged();
     }
 
+    public Item getItem(int position){
+        Item item = mList.get(position);
+        return item;
+    }
 
 }

@@ -84,31 +84,73 @@
             />
     </LinearLayout>
 
+
+
+        <ImageView
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/user_rental_item_image"
+            android:src="@drawable/contruction"
+            />
+        <TextView
+            android:id="@+id/user_rental_item_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tracker"
+            android:textSize="20dp"
+            android:gravity="center"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="수량: "
+                android:textSize="20dp"
+            />
+            <EditText
+                android:id="@+id/user_rental_item_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:inputType="number"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:layout_weight="1"
+                android:id="@+id/user_rental_item_count"
+                />
+        </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-        <TextView
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="기구: "
-            android:textSize="20dp"
+            android:layout_gravity="center"
+            android:text="신청하기"
+            android:id="@+id/user_rental_apply_button"
             />
-        <Spinner
-            android:id="@+id/user_rental_item_spinner"
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center"
+            android:text="돌아가기"
+            android:id="@+id/user_rental_cancel_button"
             />
-
     </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="신청하기"
-        android:id="@+id/user_rental_apply_button"
-        />
 
 </LinearLayout>

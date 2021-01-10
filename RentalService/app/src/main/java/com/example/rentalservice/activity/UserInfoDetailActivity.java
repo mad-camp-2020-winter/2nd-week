@@ -1,5 +1,6 @@
 package com.example.rentalservice.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,13 +26,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class UserInfoDetailActivity extends AppCompatActivity {
+public class UserInfoDetailActivity extends AppCompatActivity implements GalleryAdapter.OnListItemSelectedInterface, GalleryAdapter.OnListItemLongSelectedInterface {
 
     private ArrayList<Item> mArrayList = new ArrayList<Item>();
     private GalleryAdapter mAdapter;
     private RecyclerView mRecyclerView;
 
     private String institution_id;
+    private String institution_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,15 +43,17 @@ public class UserInfoDetailActivity extends AppCompatActivity {
         Intent i = getIntent();
 
         institution_id = i.getStringExtra("id");
-        String name = i.getStringExtra("name");
+        institution_name = i.getStringExtra("name");
         String number = i.getStringExtra("number");
         String location = i.getStringExtra("location");
+
+        System.out.println(institution_id);
 
         TextView inst_name = findViewById(R.id.user_info_detail_institution_name);
         TextView inst_location = findViewById(R.id.user_info_detail_institution_location);
         TextView inst_number = findViewById(R.id.user_info_detail_institution_number);
 
-        inst_name.setText("사무실 명: " + name);
+        inst_name.setText("사무실 명: " + institution_name);
         inst_location.setText("위치: " + location);
         inst_number.setText("번호: " + number);
 
@@ -57,7 +61,7 @@ public class UserInfoDetailActivity extends AppCompatActivity {
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        mAdapter = new GalleryAdapter(mArrayList);
+        mAdapter = new GalleryAdapter(mArrayList, UserInfoDetailActivity.this, UserInfoDetailActivity.this);
         mRecyclerView.setAdapter(mAdapter);
 
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(this, 3);
@@ -95,15 +99,29 @@ public class UserInfoDetailActivity extends AppCompatActivity {
             }
         });
 
-        Button select_btn = findViewById(R.id.user_info_detail_select_btn);
-        select_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(UserInfoDetailActivity.this, UserRentalSelectActivity.class);
-                intent.putExtra("id", institution_id);
-                startActivity(intent);
-                finish();
-            }
-        });
+    }
+
+    @Override
+    public void onItemSelected(View v, int position) {
+        Item item = mAdapter.getItem(position);
+        Intent intent = new Intent(this, UserRentalSelectActivity.class);
+        intent.putExtra("institution_name",institution_name);
+        intent.putExtra("item_name", item.getName());
+        intent.putExtra("item_count", item.getCount());
+        intent.putExtra("item_photo", item.getPhoto());
+        startActivityForResult(intent, 2);
+    }
+
+    @Override
+    public void onItemLongSelected(View v, int position) {
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 1){
+            finish();
+        }
     }
 }
