@@ -1,5 +1,6 @@
 package com.example.rentalservice.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,60 +8,141 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.SearchView;
 
+import com.example.rentalservice.ListViewItem;
 import com.example.rentalservice.R;
+import com.example.rentalservice.activity.InfoDetailActivity;
+import com.example.rentalservice.activity.UserInfoDetailActivity;
+import com.example.rentalservice.adapter.ListViewAdapter;
+import com.example.rentalservice.api.RetrofitAPI;
+import com.example.rentalservice.models.Institution;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link UserRentalFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class UserRentalFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    ListViewAdapter adapter;
+    ListView listView;
 
     public UserRentalFragment() {
-        // Required empty public constructor
-    }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment UserRentalFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static UserRentalFragment newInstance(String param1, String param2) {
-        UserRentalFragment fragment = new UserRentalFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.user_fragment_rental, container, false);
+        View v = inflater.inflate(R.layout.user_fragment_rental, container, false);
+        listView = v.findViewById(R.id.user_institution_list);
+        adapter = new ListViewAdapter();
+        listView.setAdapter(adapter);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.249.18.173:8080")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+
+        // DB로부터 데이터 불러와서 리스트뷰로 나타냄
+        Call<List<Institution>> call = retrofitAPI.getInstitution();
+        call.enqueue(new Callback<List<Institution>>() {
+            @Override
+            public void onResponse(Call<List<Institution>> call, Response<List<Institution>> response) {
+                if(response.isSuccessful()){
+                    List<Institution> institutions = response.body();
+                    int i = 0;
+                    String content = "";
+                    while(i < institutions.size()) {
+                        ListViewItem item = new ListViewItem();
+                        item.setInstitution_id(institutions.get(i).get_id());
+                        item.setInstitution_name(institutions.get(i).getName());
+                        item.setInstitution_number(institutions.get(i).getNumber());
+                        item.setInstitution_location(institutions.get(i).getLocation());
+                        adapter.addItem(item);
+                        i++;
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Institution>> call, Throwable t) {
+            }
+        });
+
+        //검색할 경우 listview layout 변경
+        SearchView searchView = v.findViewById(R.id.user_search_bar);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if(query == ""){
+                    listView.setAdapter(adapter);
+                }
+                else{
+                    ListViewAdapter search_adapter = new ListViewAdapter();
+                    int num_item = adapter.getCount();
+                    for(int i=0;i<num_item;i++){
+                        ListViewItem item = (ListViewItem) adapter.getItem(i);
+                        if(item.getInstitution_name().contains(query) || item.getInstitution_location().contains(query) || item.getInstitution_number().contains(query)){
+                            search_adapter.addItem(item);
+                        }
+                    }
+                    listView.setAdapter(search_adapter);
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(newText == ""){
+                    listView.setAdapter(adapter);
+                }
+                else{
+                    ListViewAdapter search_adapter = new ListViewAdapter();
+                    int num_item = adapter.getCount();
+                    for(int i=0;i<num_item;i++){
+                        ListViewItem item = (ListViewItem) adapter.getItem(i);
+                        if(item.getInstitution_name().contains(newText) || item.getInstitution_location().contains(newText) || item.getInstitution_number().contains(newText)){
+                            search_adapter.addItem(item);
+                        }
+                    }
+                    listView.setAdapter(search_adapter);
+                }
+                return true;
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ListViewItem item = (ListViewItem) parent.getItemAtPosition(position);
+
+                String item_id = item.getInstitution_id();
+                String item_name = item.getInstitution_name();
+                String item_number = item.getInstitution_number();
+                String item_location = item.getInstitution_location();
+
+                Intent i = new Intent(getContext(), UserInfoDetailActivity.class);
+                i.putExtra("id", item_id);
+                i.putExtra("name", item_name);
+                i.putExtra("number", item_number);
+                i.putExtra("location", item_location);
+
+                startActivity(i);
+            }
+        });
+
+        return v;
     }
 }

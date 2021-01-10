@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.rentalservice.R;
+import com.example.rentalservice.models.Login;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.widget.Toolbar;
@@ -41,13 +42,12 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        CharSequence id = item.getTitle();
+        int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == "LogOut") {
-            Intent i = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(i);
-            return true;
+        if (id == R.id.menu_logout) {
+            System.out.println("--------------a----------------");
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
@@ -25,8 +26,10 @@ public class UserMainActivity extends AppCompatActivity {
         viewPager.setAdapter(usersectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.user_tabs);
         tabs.setupWithViewPager(viewPager);
-//        Toolbar toolbar = findViewById(R.id.user_tool_bar);
-//        setSupportActionBar(toolbar);
+        Toolbar toolbar = findViewById(R.id.user_tool_bar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("RentalService");
 
     }
 

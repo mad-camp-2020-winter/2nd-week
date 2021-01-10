@@ -51,8 +51,13 @@ public class LoginActivity extends AppCompatActivity {
         EditText login_password = findViewById(R.id.login_password);
         Button login = findViewById(R.id.login_button);
         Button join = findViewById(R.id.join_button);
-        Button user = findViewById(R.id.user_login);
+        Button user = findViewById(R.id.user_login_button);
 
+        Intent i1 = getIntent();
+        if(i1 != null){
+            login_id.setText("");
+            login_password.setText("");
+        }
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

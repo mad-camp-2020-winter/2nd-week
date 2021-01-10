@@ -67,7 +67,7 @@
         android:text="비회원으로 시작하기"
         android:layout_marginTop="70dp"
         android:layout_gravity="center"
-        android:id="@+id/user_login"
+        android:id="@+id/user_login_button"
         />
 
 </LinearLayout>
