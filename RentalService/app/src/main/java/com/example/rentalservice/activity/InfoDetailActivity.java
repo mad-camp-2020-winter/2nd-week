@@ -8,9 +8,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rentalservice.ListViewItem;
 import com.example.rentalservice.R;
@@ -29,7 +33,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class InfoDetailActivity extends AppCompatActivity {
+public class InfoDetailActivity extends AppCompatActivity implements GalleryAdapter.OnListItemSelectedInterface, GalleryAdapter.OnListItemLongSelectedInterface{
 
     private ArrayList<Item> mArrayList = new ArrayList<Item>();
     private GalleryAdapter mAdapter;
@@ -62,7 +66,7 @@ public class InfoDetailActivity extends AppCompatActivity {
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        mAdapter = new GalleryAdapter(mArrayList);
+        mAdapter = new GalleryAdapter(mArrayList, InfoDetailActivity.this, InfoDetailActivity.this);
         mRecyclerView.setAdapter(mAdapter);
 
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(this, 3); // 한줄에 세 사진
@@ -111,6 +115,55 @@ public class InfoDetailActivity extends AppCompatActivity {
             }
         });
 
+        // 길게 누르면 팝업
+//        mRecyclerView.onItemlong
+//
+//        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//                PopupMenu popupMenu = new PopupMenu(getContext(), view);
+//                popupMenu.getMenuInflater().inflate(R.menu.popup_info, popupMenu.getMenu());
+//                popupMenu.show();
+//                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                    @Override
+//                    public boolean onMenuItemClick(MenuItem item) {
+//                        switch (item.getItemId()){
+//                            case R.id.info_edit:
+//                                Intent intent = new Intent(getContext(), InfoEditActivity.class);
+//                                ListViewItem listViewItem = (ListViewItem) adapter.getItem(position);
+//                                intent.putExtra("position",position);
+//                                intent.putExtra("id",listViewItem.getInstitution_id());
+//                                intent.putExtra("name",listViewItem.getInstitution_name());
+//                                intent.putExtra("number",listViewItem.getInstitution_number());
+//                                intent.putExtra("location",listViewItem.getInstitution_location());
+//                                startActivityForResult(intent,2);
+//                                break;
+//                            case R.id.info_delete:
+//                                ListViewItem item2 = (ListViewItem) adapter.getItem(position);
+//                                Call<Void> call2 = retrofitAPI.deleteInstitution(item2.getInstitution_id());
+//                                call2.enqueue(new Callback<Void>() {
+//                                    @Override
+//                                    public void onResponse(Call<Void> call, Response<Void> response) {
+//                                        if(response.isSuccessful()){
+//                                            adapter.removeItem(position);
+//                                            listView.setAdapter(adapter);
+//                                        }
+//                                    }
+//
+//                                    @Override
+//                                    public void onFailure(Call<Void> call, Throwable t) {
+//
+//                                    }
+//                                });
+//                                break;
+//                        }
+//                        return true;
+//                    }
+//                });
+//                return true;
+//
+//            }
+//        });
     }
 
     @Override
@@ -156,7 +209,6 @@ public class InfoDetailActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Item> call, Throwable t) {
-                    System.out.println("망했어요망했어요망했어요망했어요망했어요망했어요");
                 }
             });
 
@@ -198,5 +250,18 @@ public class InfoDetailActivity extends AppCompatActivity {
 //                }
 //            });
         }
+    }
+
+    @Override
+    public void onItemLongSelected(View v, int position) {
+        GalleryAdapter.CustomViewHolder viewHolder = (GalleryAdapter.CustomViewHolder) mRecyclerView.findViewHolderForAdapterPosition(position);
+        Toast.makeText(this, position + " clicked",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemSelected(View v, int position) {
+        GalleryAdapter.CustomViewHolder viewHolder = (GalleryAdapter.CustomViewHolder) mRecyclerView.findViewHolderForAdapterPosition(position);
+        Toast.makeText(this, position + " clicked",Toast.LENGTH_SHORT).show();
+
     }
 }

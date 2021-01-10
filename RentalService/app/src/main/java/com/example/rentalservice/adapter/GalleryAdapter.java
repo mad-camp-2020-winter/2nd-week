@@ -19,15 +19,27 @@ import android.widget.TextView;
 
 import com.example.rentalservice.R;
 import com.example.rentalservice.models.Item;
+import com.example.rentalservice.ui.main.PageViewModel;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.CustomViewHolder> {
 
+    private OnListItemLongSelectedInterface mLongListener;
+    private OnListItemSelectedInterface mListener;
+
+    //누를 때, 길게 누를때 상황에 맞춰 override
+    public interface OnListItemLongSelectedInterface{
+        void onItemLongSelected(View v, int position);
+    }
+    public interface OnListItemSelectedInterface{
+        void onItemSelected(View v, int position);
+    }
+
+
     private Context context;
     private ArrayList<Item> mList = new ArrayList<Item>();
-
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
         protected TextView name;
@@ -40,12 +52,29 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.CustomVi
             this.name = (TextView) view.findViewById(R.id.name);
             this.count = (TextView) view.findViewById(R.id.count);
             this.photo = (ImageView) view.findViewById(R.id.photo);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onItemSelected(v, getAdapterPosition());
+                }
+            });
+
+            view.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    mLongListener.onItemLongSelected(v, getAdapterPosition());
+                    return false;
+                }
+            });
         }
     }
 
 
-    public GalleryAdapter(ArrayList<Item> list) {
+    public GalleryAdapter(ArrayList<Item> list, OnListItemSelectedInterface listener, OnListItemLongSelectedInterface longListener) {
         this.mList = list;
+        this.mListener = listener;
+        this.mLongListener = longListener;
     }
 
 
@@ -104,4 +133,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.CustomVi
         mList.add(item);
         notifyDataSetChanged();
     }
+
+
 }
