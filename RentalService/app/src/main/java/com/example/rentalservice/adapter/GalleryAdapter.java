@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -17,6 +20,7 @@ import android.widget.TextView;
 import com.example.rentalservice.R;
 import com.example.rentalservice.models.Item;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.CustomViewHolder> {
@@ -77,7 +81,18 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.CustomVi
 
         viewholder.name.setText(mList.get(position).getName());
         viewholder.count.setText("수량 : " + mList.get(position).getCount());
-        viewholder.photo.setImageResource(R.drawable.phone);
+
+        String data = mList.get(position).getPhoto();
+        if(data == null) {
+            viewholder.photo.setImageResource(R.drawable.phone); // 테스트용 임의 설정
+        }
+        else {
+            //bitmap -> stream -> image 변환
+            byte[] bytePlainOrg = Base64.decode(data, 0);
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(bytePlainOrg);
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            viewholder.photo.setImageBitmap(bitmap);
+        }
     }
 
     @Override
