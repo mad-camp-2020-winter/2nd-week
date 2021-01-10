@@ -106,9 +106,11 @@ public class UserInfoDetailActivity extends AppCompatActivity implements Gallery
         Item item = mAdapter.getItem(position);
         Intent intent = new Intent(this, UserRentalSelectActivity.class);
         intent.putExtra("institution_name",institution_name);
+        intent.putExtra("institution_id",institution_id);
         intent.putExtra("item_name", item.getName());
         intent.putExtra("item_count", item.getCount());
         intent.putExtra("item_photo", item.getPhoto());
+        intent.putExtra("item_id", item.get_id());
         startActivityForResult(intent, 2);
     }
 

@@ -41,7 +41,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="150dp"
+            android:layout_marginRight="120dp"
             android:id="@+id/user_rental_phone_number"
             android:inputType="number"
             />
@@ -113,7 +113,7 @@
                 android:textSize="20dp"
             />
             <EditText
-                android:id="@+id/user_rental_item_number"
+                android:id="@+id/user_rental_item_count"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
@@ -124,7 +124,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:layout_weight="1"
-                android:id="@+id/user_rental_item_count"
+                android:id="@+id/user_rental_item_count_hint"
                 />
         </LinearLayout>
 

@@ -27,7 +27,8 @@ public class JoinActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_activity_join);
 
-        final String[] checked_id = {""};
+        final String[] checked_id  = {""};
+        String checkcode = "dud6!tjr4&wl7@dud9?=";
 
         EditText id = findViewById(R.id.join_id);
         EditText password = findViewById(R.id.join_password);
@@ -51,10 +52,10 @@ public class JoinActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<List<Login>> call, Response<List<Login>> response) {
                         if(response.isSuccessful()){
-                            Toast.makeText(JoinActivity.this, "이미 존재하는 아이디입니다!", Toast.LENGTH_SHORT);
+                            Toast.makeText(JoinActivity.this, "이미 존재하는 아이디입니다!", Toast.LENGTH_SHORT).show();
                         }
                         else{
-                            Toast.makeText(JoinActivity.this, "사용가능한 아이디입니다!",Toast.LENGTH_SHORT);
+                            Toast.makeText(JoinActivity.this, "사용가능한 아이디입니다!",Toast.LENGTH_SHORT).show();
                             checked_id[0] = checking_id;
                         }
                     }
@@ -69,24 +70,24 @@ public class JoinActivity extends AppCompatActivity {
         join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checked_id[0].length() == 0 | !checked_id[0].equals(id.getText().toString())){
-                    Toast.makeText(JoinActivity.this, "아이디 중복 확인을 해주세요!", Toast.LENGTH_SHORT);
+                if(!(checked_id[0].equals(id.getText().toString()))){
+                    Toast.makeText(JoinActivity.this, "아이디 중복 확인을 해주세요!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 else if(password.getText().length() < 8){
-                    Toast.makeText(JoinActivity.this, "비밀번호는 8자 이상으로 입력해 주세요!", Toast.LENGTH_SHORT);
+                    Toast.makeText(JoinActivity.this, "비밀번호는 8자 이상으로 입력해 주세요!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 else if(name.getText().length() == 0){
-                    Toast.makeText(JoinActivity.this, "이름을 입력해 주세요!", Toast.LENGTH_SHORT);
+                    Toast.makeText(JoinActivity.this, "이름을 입력해 주세요!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 else if(number.getText().length() < 10 ){
-                    Toast.makeText(JoinActivity.this, "전화번호를 입력해 주세요!", Toast.LENGTH_SHORT);
+                    Toast.makeText(JoinActivity.this, "전화번호를 입력해 주세요!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                else if(!check_code.getText().toString().equals("dud6!tjr4&wl7@dud9?=")){
-                    Toast.makeText(JoinActivity.this, "올바른 인증 코드를 입력해 주세요!", Toast.LENGTH_SHORT);
+                else if(!check_code.getText().toString().contentEquals(checkcode)){
+                    Toast.makeText(JoinActivity.this, "올바른 인증 코드를 입력해 주세요!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 else{

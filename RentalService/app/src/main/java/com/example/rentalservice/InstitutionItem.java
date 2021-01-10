@@ -1,6 +1,6 @@
 package com.example.rentalservice;
 
-public class ListViewItem {
+public class InstitutionItem {
     private String institution_name;
     private String institution_number;
     private String institution_location;
