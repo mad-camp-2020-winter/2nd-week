@@ -1,15 +1,19 @@
 package com.example.rentalservice.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.rentalservice.R;
+import com.example.rentalservice.activity.AdminCommentActivity;
 import com.example.rentalservice.adapter.RentalDetailAdapter;
 import com.example.rentalservice.api.RetrofitAPI;
 import com.example.rentalservice.models.RentalDetail;
@@ -24,7 +28,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RentalFragment extends Fragment {
 
-
+    ListView listView;
+    RentalDetailAdapter rentalDetailAdapter;
+    Retrofit retrofit;
+    RetrofitAPI retrofitAPI;
 
     public RentalFragment() {
         // Required empty public constructor
@@ -39,21 +46,20 @@ public class RentalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.admin_fragment_rental, container, false);
-        ListView listView = v.findViewById(R.id.admin_rental_detail_list);
-        RentalDetailAdapter rentalDetailAdapter = new RentalDetailAdapter();
+        listView = v.findViewById(R.id.admin_rental_detail_list);
+        rentalDetailAdapter = new RentalDetailAdapter();
         listView.setAdapter(rentalDetailAdapter);
 
-        Retrofit retrofit = new Retrofit.Builder()
+        retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.249.18.173:8080")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+        retrofitAPI = retrofit.create(RetrofitAPI.class);
 
         Call<List<RentalDetail>> rental_call = retrofitAPI.getRentalDetail();
         rental_call.enqueue(new Callback<List<RentalDetail>>() {
             @Override
             public void onResponse(Call<List<RentalDetail>> call, Response<List<RentalDetail>> response) {
-                System.out.println("__________________a");
                 if(response.isSuccessful()){
                     for(int i=0;i<response.body().size();i++){
                         RentalDetail rentalDetail = new RentalDetail();
@@ -66,6 +72,7 @@ public class RentalFragment extends Fragment {
                         rentalDetail.setRental_date(response.body().get(i).getRental_date());
                         rentalDetail.setServer_date(response.body().get(i).getServer_date());
                         rentalDetail.setComment(response.body().get(i).getComment());
+                        rentalDetail.set_id(response.body().get(i).get_id());
                         rentalDetailAdapter.addItem(rentalDetail);
                     }
                 }
@@ -77,6 +84,50 @@ public class RentalFragment extends Fragment {
             }
         });
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                RentalDetail item = (RentalDetail) rentalDetailAdapter.getItem(position);
+                Intent i = new Intent(getContext(), AdminCommentActivity.class);
+                i.putExtra("institution_id", item.getInstitution_id());
+                i.putExtra("user_name", item.getUser_name());
+                i.putExtra("user_phone", item.getUser_phone());
+                i.putExtra("apply_date", item.getServer_date());
+                i.putExtra("item_id", item.getItem_id());
+                i.putExtra("item_count", item.getCount());
+                i.putExtra("rental_date", item.getRental_date());
+                i.putExtra("approval", item.getApproval());
+                i.putExtra("comment", item.getComment());
+                i.putExtra("position",position);
+                startActivityForResult(i, 3);
+            }
+        });
         return v;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(resultCode == 4){
+            String comment = data.getStringExtra("comment");
+            int position = data.getIntExtra("position", 0);
+            int approval = data.getIntExtra("approval", 0);
+            RentalDetail rentalDetail = (RentalDetail) rentalDetailAdapter.getItem(position);
+            rentalDetail.setApproval(approval);
+            rentalDetail.setComment(comment);
+            Call<RentalDetail> rentalDetailCall = retrofitAPI.putRentalDetail(rentalDetail.get_id(), rentalDetail);
+            rentalDetailCall.enqueue(new Callback<RentalDetail>() {
+                @Override
+                public void onResponse(Call<RentalDetail> call, Response<RentalDetail> response) {
+                    if(response.isSuccessful()){
+                      rentalDetailAdapter.notifyDataSetChanged();
+                      listView.setAdapter(rentalDetailAdapter);
+                    }
+                }
+                @Override
+                public void onFailure(Call<RentalDetail> call, Throwable t) {
+                }
+            });
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

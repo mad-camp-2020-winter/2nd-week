@@ -74,6 +74,7 @@ public class UserRentalSelectActivity extends AppCompatActivity {
         Date date = calendar.getTime();
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy년 MM월 dd일");
         date_btn.setText(format1.format(calendar.getTime()));
+        int server_date = calendar.get(Calendar.YEAR) * 10000 + (calendar.get(Calendar.MONTH) + 1) * 100 + calendar.get(Calendar.DATE);
         final int[] date_n = {calendar.get(Calendar.YEAR) * 10000 + (calendar.get(Calendar.MONTH) + 1) * 100 + calendar.get(Calendar.DATE)};
 
         date_btn.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +100,7 @@ public class UserRentalSelectActivity extends AppCompatActivity {
                 rentalDetail.setCount(Integer.parseInt(it_count.getText().toString()));
                 rentalDetail.setInstitution_id(institution_id);
                 rentalDetail.setRental_date(date_n[0]);
+                rentalDetail.setServer_date(server_date);
                 rentalDetail.setItem_id(item_id);
                 rentalDetail.setUser_phone(user_number.getText().toString());
                 Call<RentalDetail> call = retrofitAPI.createRentalDetail(rentalDetail);
@@ -106,6 +108,7 @@ public class UserRentalSelectActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<RentalDetail> call, Response<RentalDetail> response) {
                         if(response.isSuccessful()){
+                            rentalDetail.set_id(response.body().get_id());
                             setResult(1);
                             finish();
                         }

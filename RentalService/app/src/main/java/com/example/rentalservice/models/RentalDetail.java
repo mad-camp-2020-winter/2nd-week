@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 import java.sql.Date;
 
 public class RentalDetail {
+    @SerializedName("_id")
+    private String _id;
     @SerializedName("item_id")
     private String item_id;
     @SerializedName("institution_id")
@@ -24,6 +26,7 @@ public class RentalDetail {
     @SerializedName("count")
     private int count;
 
+    public String get_id() { return _id; }
     public String getItem_id() { return item_id; }
     public String getInstitution_id() { return institution_id; }
     public int getApproval() { return approval; }
@@ -34,6 +37,7 @@ public class RentalDetail {
     public String getComment() { return comment; }
     public int getCount() { return count; }
 
+    public void set_id(String _id) { this._id = _id; }
     public void setItem_id(String item_id) { this.item_id = item_id; }
     public void setInstitution_id(String institution_id) { this.institution_id = institution_id; }
     public void setApproval(int approval) { this.approval = approval; }

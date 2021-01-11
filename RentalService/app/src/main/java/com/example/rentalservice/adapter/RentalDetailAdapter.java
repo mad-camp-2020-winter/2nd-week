@@ -51,14 +51,10 @@ public class RentalDetailAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.admin_rentaldetailitem, parent, false);
         }
 
-        TextView nameView = convertView.findViewById(R.id.rental_user_name);
-        TextView numberview = convertView.findViewById(R.id.user_rental_phone_number);
-        TextView locationview = convertView.findViewById(R.id.rental_location);
-        TextView itemnameView = convertView.findViewById(R.id.rental_item_name);
-        TextView itemcountView = convertView.findViewById(R.id.rental_item_number);
-        TextView dateView = convertView.findViewById(R.id.rental_date);
-        TextView approvalView = convertView.findViewById(R.id.rental_approval);
-        TextView commentView = convertView.findViewById(R.id.rental_comment);
+        TextView rental_date = convertView.findViewById(R.id.rental_item_date);
+        TextView rental_institution = convertView.findViewById(R.id.rental_institution_name);
+        TextView rental_item_info = convertView.findViewById(R.id.rental_item_info);
+        TextView rental_approval = convertView.findViewById(R.id.rental_approval);
 
         RentalDetail rentalDetail = RentalDetailItems.get(position);
 
@@ -72,7 +68,35 @@ public class RentalDetailAdapter extends BaseAdapter {
             @Override
             public void onResponse(Call<Institution> call, Response<Institution> response) {
                 if(response.isSuccessful()){
-                    locationview.setText(response.body().getName() + "    " + response.body().getLocation());
+                    rental_institution.setText("기관: " + response.body().getName());
+                    Call<Item> itemCall = retrofitAPI.getItemById(rentalDetail.getItem_id());
+                    itemCall.enqueue(new Callback<Item>() {
+                        @Override
+                        public void onResponse(Call<Item> call, Response<Item> response) {
+                            if(response.isSuccessful()){
+                                rental_item_info.setText("Item: " + response.body().getName() + "(" + rentalDetail.getCount() + ")");
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<Item> call, Throwable t) {
+                        }
+                    });
+
+                    int date = rentalDetail.getRental_date();
+                    int year = date/10000;
+                    int month = (date-year*10000)/100;
+                    int day = (date-year*10000-month*100);
+                    rental_date.setText("신청 날짜: " + year + "년 " + month + "월 " + day + "일");
+                    int approval = rentalDetail.getApproval();
+                    if(approval == 0){
+                        rental_approval.setText("승인대기중");
+                    }
+                    else if(approval == 1){
+                        rental_approval.setText("승인");
+                    }
+                    else{
+                        rental_approval.setText("반려");
+                    }
                 }
             }
             @Override
@@ -80,42 +104,7 @@ public class RentalDetailAdapter extends BaseAdapter {
             }
         });
 
-        Call<Item> itemCall = retrofitAPI.getItemById(rentalDetail.getItem_id());
-        itemCall.enqueue(new Callback<Item>() {
-            @Override
-            public void onResponse(Call<Item> call, Response<Item> response) {
-                if(response.isSuccessful()){
-                    itemnameView.setText(response.body().getName());
-                }
-            }
-            @Override
-            public void onFailure(Call<Item> call, Throwable t) {
-            }
-        });
 
-        nameView.setText(rentalDetail.getUser_name());
-        numberview.setText(rentalDetail.getUser_phone());
-        itemcountView.setText(rentalDetail.getCount());
-        int date = rentalDetail.getRental_date();
-        int year = date/10000;
-        int month = (date-year*10000)/100;
-        int day = (date-year*10000-month*100);
-        dateView.setText(year + "년 " + month + "월 " + day + "일");
-        int approval = rentalDetail.getApproval();
-        if(approval == 0){
-            approvalView.setText("승인대기중");
-            commentView.setVisibility(View.INVISIBLE);
-        }
-        else if(approval == 1){
-            approvalView.setText("승인");
-            commentView.setVisibility(View.VISIBLE);
-            commentView.setText(rentalDetail.getComment());
-        }
-        else{
-            approvalView.setText("반려");
-            commentView.setVisibility(View.VISIBLE);
-            commentView.setText(rentalDetail.getComment());
-        }
 
         return convertView;
     }

@@ -19,7 +19,7 @@ public interface RetrofitAPI {
         //INSTITUTION
         @GET("/institution")
         Call<List<Institution>> getInstitution();
-        @GET("/institution/name/{id}")
+        @GET("/institution/{id}")
         Call<Institution> getInstitutionById(@Path("id") String id);
         @POST("/institution")
         Call<Institution> createInstitution(@Body Institution institution);
