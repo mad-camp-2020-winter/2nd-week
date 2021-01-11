@@ -29,8 +29,7 @@ public class UserMainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.user_tool_bar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("RentalService");
-
+        actionBar.setTitle("공공장비 온라인센터");
     }
 
 }
