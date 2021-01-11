@@ -2,22 +2,27 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/borderline">
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="110dp">
         <ImageView
             android:id="@+id/gallery_add_button"
             android:src="@drawable/contruction"
             android:layout_width="200dp"
-            android:layout_height="200dp"/>
+            android:layout_height="200dp"
+            />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="30dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -25,13 +30,13 @@
             android:text="공공장비 이름: "
             android:textSize="20dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="30dp"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="30dp"
             android:textSize="20dp"
             android:id="@+id/gallery_add_name"
             android:inputType="text"
@@ -50,30 +55,37 @@
             android:text="총 수량: "
             android:textSize="20dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="30dp"
             />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="30dp"
             android:textSize="20dp"
             android:id="@+id/gallery_add_count"
             android:inputType="number"
             />
     </LinearLayout>
 
-    <Button
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="저장"
-        android:id="@+id/gallery_add_save"
-        />
-    <Button
-        android:layout_marginLeft="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="취소"
-        android:id="@+id/gallery_add_cancel"
-        />
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="30dp">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="저장"
+            android:id="@+id/gallery_add_save"
+            />
+        <Button
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="취소"
+            android:id="@+id/gallery_add_cancel"
+            />
+    </LinearLayout>
 </LinearLayout>

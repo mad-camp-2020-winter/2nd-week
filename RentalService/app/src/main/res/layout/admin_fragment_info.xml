@@ -21,6 +21,7 @@
             android:queryHint="사무소 이름 또는 전화번호"
             android:id="@+id/search_bar"
             android:iconifiedByDefault="false"
+            android:fontFamily="@font/app_main_font"
             />
 
         <ListView

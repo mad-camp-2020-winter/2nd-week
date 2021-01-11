@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name = "android:fontFamily">@font/ngb</item>
     </style>
 
     <style name="Theme.RentalService.NoActionBar">
@@ -19,7 +20,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.RentalService.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
+    <style name="Theme.RentalService.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    </style>
     <style name="Theme.RentalService.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
