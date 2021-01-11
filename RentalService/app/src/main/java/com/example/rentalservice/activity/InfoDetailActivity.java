@@ -56,7 +56,7 @@ public class InfoDetailActivity extends AppCompatActivity implements GalleryAdap
         TextView inst_location = findViewById(R.id.info_detail_institution_location);
         TextView inst_number = findViewById(R.id.info_detail_institution_number);
 
-        inst_name.setText("사무실 명: " + name);
+        inst_name.setText(name);
         inst_location.setText("위치: " + location);
         inst_number.setText("번호: " + number);
 

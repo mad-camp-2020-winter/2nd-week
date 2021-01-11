@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RentalService</string>
+    <string name="app_name">공공장비 온라인센터</string>
     <string name="tab_text_1">신청관리</string>
     <string name="tab_text_2">정보관리</string>
     <string name="user_tab_text_1">대여신청</string>

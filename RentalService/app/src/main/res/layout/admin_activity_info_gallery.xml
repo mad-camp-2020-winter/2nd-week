@@ -29,7 +29,6 @@
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:text="트랙터경운기"
             android:textAlignment="center"
             android:gravity="center_horizontal" />
@@ -38,7 +37,6 @@
             android:id="@+id/count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:layout_margin="5dp"
             android:text="(7대)"
             android:textAlignment="center"

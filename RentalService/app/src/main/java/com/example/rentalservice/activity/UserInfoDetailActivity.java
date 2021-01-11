@@ -53,7 +53,7 @@ public class UserInfoDetailActivity extends AppCompatActivity implements Gallery
         TextView inst_location = findViewById(R.id.user_info_detail_institution_location);
         TextView inst_number = findViewById(R.id.user_info_detail_institution_number);
 
-        inst_name.setText("사무실 명: " + institution_name);
+        inst_name.setText(institution_name);
         inst_location.setText("위치: " + location);
         inst_number.setText("번호: " + number);
 
