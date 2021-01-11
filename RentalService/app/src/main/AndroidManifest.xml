@@ -30,7 +30,9 @@
         <activity android:name=".activity.InfoEditActivity" />
         <activity android:name=".activity.GalleryAddActivity" />
         <activity android:name=".activity.GalleryEditActivity" />
-        <activity android:name=".activity.AdminCommentActivity"/>
+        <activity
+            android:name=".activity.AdminCommentActivity"
+            android:theme="@android:style/Theme.Dialog"/>
 
         <activity
             android:name=".activity.InfoAddActivity"

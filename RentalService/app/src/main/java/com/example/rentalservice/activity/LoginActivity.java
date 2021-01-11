@@ -16,7 +16,10 @@ import com.example.rentalservice.api.LoginCallback;
 import com.example.rentalservice.api.RetrofitAPI;
 import com.example.rentalservice.models.Institution;
 import com.example.rentalservice.models.Login;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
+import com.facebook.login.LoginBehavior;
+import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 
 import java.util.Arrays;
@@ -46,6 +49,13 @@ public class LoginActivity extends AppCompatActivity {
         btn_facebook_login = (LoginButton) findViewById(R.id.btn_facebook_login);
         btn_facebook_login.setReadPermissions(Arrays.asList("public_profile", "email"));
         btn_facebook_login.registerCallback(mCallbackManager, mLoginCallback);
+        AccessToken token;
+        token = AccessToken.getCurrentAccessToken();
+        if(token != null){
+            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(i);
+            finish();
+        }
 
         EditText login_id = findViewById(R.id.login_id);
         EditText login_password = findViewById(R.id.login_password);
@@ -54,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         Button user = findViewById(R.id.user_login_button);
 
         Intent i1 = getIntent();
+        System.out.println(i1 == null);
         if(i1 != null){
             login_id.setText("");
             login_password.setText("");
@@ -78,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
                             if (res.getPassword().equals(login1.getPassword())) {
                                 Intent i = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(i);
+                                finish();
                             } else {
                                 Toast.makeText(LoginActivity.this, "Wrong password!", Toast.LENGTH_SHORT).show();
                             }
@@ -118,6 +130,7 @@ public class LoginActivity extends AppCompatActivity {
         if (resultCode == -1) {
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(i);
+            finish();
         }
     }
 }

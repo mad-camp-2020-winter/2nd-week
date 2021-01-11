@@ -25,6 +25,7 @@ public class RentalDetail {
     private String comment;
     @SerializedName("count")
     private int count;
+    private String institution_name;
 
     public String get_id() { return _id; }
     public String getItem_id() { return item_id; }
@@ -36,6 +37,7 @@ public class RentalDetail {
     public String getUser_name() { return user_name; }
     public String getComment() { return comment; }
     public int getCount() { return count; }
+    public String getInstitution_name(){return institution_name; }
 
     public void set_id(String _id) { this._id = _id; }
     public void setItem_id(String item_id) { this.item_id = item_id; }
@@ -47,4 +49,5 @@ public class RentalDetail {
     public void setUser_name(String user_name) { this.user_name = user_name; }
     public void setComment(String comment) { this.comment = comment; }
     public void setCount(int count) { this.count = count; }
+    public void setInstitution_name(String institution_name) { this.institution_name = institution_name; }
 }

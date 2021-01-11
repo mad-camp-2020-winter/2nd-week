@@ -69,6 +69,7 @@ public class RentalDetailAdapter extends BaseAdapter {
             public void onResponse(Call<Institution> call, Response<Institution> response) {
                 if(response.isSuccessful()){
                     rental_institution.setText("기관: " + response.body().getName());
+                    rentalDetail.setInstitution_name(response.body().getName());
                     Call<Item> itemCall = retrofitAPI.getItemById(rentalDetail.getItem_id());
                     itemCall.enqueue(new Callback<Item>() {
                         @Override
@@ -117,4 +118,6 @@ public class RentalDetailAdapter extends BaseAdapter {
     public void removeItem(int position){
         RentalDetailItems.remove(position);
     }
+
+    public void removeAll() {RentalDetailItems = new ArrayList<RentalDetail>();}
 }

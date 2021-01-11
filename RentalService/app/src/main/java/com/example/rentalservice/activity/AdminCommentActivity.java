@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.core.view.ViewCompat;
+
 import com.example.rentalservice.R;
 import com.example.rentalservice.api.RetrofitAPI;
 import com.example.rentalservice.models.Institution;
@@ -36,6 +38,8 @@ public class AdminCommentActivity extends Activity {
         setContentView(R.layout.admin_activity_comment);
 
         Intent i = getIntent();
+        boolean is_user = i.getBooleanExtra("is_user", false);
+
         int position = i.getIntExtra("position", 0);
         String institution_id = i.getStringExtra("institution_id");
         String user_name = i.getStringExtra("user_name");
@@ -62,12 +66,20 @@ public class AdminCommentActivity extends Activity {
         TextView View_rental_date = findViewById(R.id.comment_rental_date);
         Spinner View_approval = findViewById(R.id.comment_approval_spinner);
         EditText View_comment = findViewById(R.id.comment_comment);
+        Button save = findViewById(R.id.comment_save);
+
+        if(is_user){save.setText("닫기");}
+        else{save.setText("저장");}
 
         View_user_name.setText("신청자 이름: " + user_name);
         View_user_phone.setText("신청자 번호: " + user_phone);
         View_apply_date.setText("신청한 날짜: " + String.valueOf(apply_year) + "년 " + String.valueOf(apply_month) + "월 " + String.valueOf(apply_day) + "일");
         View_rental_date.setText("대여 기간: " +String.valueOf(rental_year) + "년 " + String.valueOf(rental_month) + "월 " + String.valueOf(rental_day) + "일");
         View_comment.setText(comment);
+
+        if(is_user){
+            View_comment.setEnabled(false);
+        }
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.249.18.173:8080")
@@ -92,7 +104,7 @@ public class AdminCommentActivity extends Activity {
             @Override
             public void onResponse(Call<Item> call, Response<Item> response) {
                 if(response.isSuccessful()){
-                    View_item_info.setText("신청 물품: " + response.body().getName() + String.valueOf(item_count));
+                    View_item_info.setText("신청 물품: " + response.body().getName() + "(" + String.valueOf(item_count) + ")");
                 }
             }
             @Override
@@ -100,42 +112,52 @@ public class AdminCommentActivity extends Activity {
             }
         });
 
-
         ArrayAdapter arrayAdapter = ArrayAdapter.createFromResource(this, R.array.approval, android.R.layout.simple_spinner_dropdown_item);
         View_approval.setAdapter(arrayAdapter);
         View_approval.setSelection(approval[0]);
-
-        View_approval.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position){
-                    case 0:
-                        approval[0] = 0;
-                        break;
-                    case 1:
-                        approval[0] = 1;
-                        break;
-                    case 2:
-                        approval[0] = 2;
-                        break;
+        if(is_user){
+            View_approval.setEnabled(false);
+        }
+        else {
+            View_approval.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    switch (position) {
+                        case 0:
+                            approval[0] = 0;
+                            break;
+                        case 1:
+                            approval[0] = 1;
+                            break;
+                        case 2:
+                            approval[0] = 2;
+                            break;
+                    }
                 }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
 
-            }
-        });
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
 
-        Button save = findViewById(R.id.comment_save);
+                }
+            });
+        }
+
+
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra("approval", approval[0]);
-                intent.putExtra("comment", View_comment.getText().toString());
-                intent.putExtra("position", position);
-                setResult(4, intent);
-                finish();
+                if (is_user){
+                    finish();
+                }
+                else {
+                    Intent intent = new Intent();
+                    intent.putExtra("approval", approval[0]);
+                    intent.putExtra("comment", View_comment.getText().toString());
+                    intent.putExtra("position", position);
+                    setResult(4, intent);
+                    finish();
+                }
             }
         });
 

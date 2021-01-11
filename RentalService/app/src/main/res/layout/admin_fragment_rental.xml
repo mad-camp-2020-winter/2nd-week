@@ -13,7 +13,7 @@
         <SearchView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:queryHint="사무소 이름 또는 전화번호"
+            android:queryHint="사무소 이름"
             android:id="@+id/admin_rental_detail_search_bar"
             android:iconifiedByDefault="false"
             />

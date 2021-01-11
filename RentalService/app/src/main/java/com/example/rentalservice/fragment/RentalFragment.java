@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.example.rentalservice.R;
 import com.example.rentalservice.activity.AdminCommentActivity;
@@ -89,6 +90,7 @@ public class RentalFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 RentalDetail item = (RentalDetail) rentalDetailAdapter.getItem(position);
                 Intent i = new Intent(getContext(), AdminCommentActivity.class);
+                i.putExtra(" is_user", false);
                 i.putExtra("institution_id", item.getInstitution_id());
                 i.putExtra("user_name", item.getUser_name());
                 i.putExtra("user_phone", item.getUser_phone());
@@ -102,6 +104,47 @@ public class RentalFragment extends Fragment {
                 startActivityForResult(i, 3);
             }
         });
+
+        SearchView searchView = v.findViewById(R.id.admin_rental_detail_search_bar);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if(query == ""){
+                    listView.setAdapter(rentalDetailAdapter);
+                }
+                else{
+                    RentalDetailAdapter new_adapter = new RentalDetailAdapter();
+                    int list_num = rentalDetailAdapter.getCount();
+                    for(int i=0;i<list_num;i++){
+                        RentalDetail rentalDetail = (RentalDetail) rentalDetailAdapter.getItem(i);
+                        if(rentalDetail.getInstitution_name().contains(query)){
+                            new_adapter.addItem(rentalDetail);
+                        }
+                    }
+                    listView.setAdapter(new_adapter);
+                }
+                return true;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(newText == ""){
+                    listView.setAdapter(rentalDetailAdapter);
+                }
+                else{
+                    RentalDetailAdapter new_adapter = new RentalDetailAdapter();
+                    int list_num = rentalDetailAdapter.getCount();
+                    for(int i=0;i<list_num;i++){
+                        RentalDetail rentalDetail = (RentalDetail) rentalDetailAdapter.getItem(i);
+                        if(rentalDetail.getInstitution_name().contains(newText)){
+                            new_adapter.addItem(rentalDetail);
+                        }
+                    }
+                    listView.setAdapter(new_adapter);
+                }
+                return true;
+            }
+        });
+
         return v;
     }
 

@@ -7,6 +7,8 @@ import android.view.MenuItem;
 
 import com.example.rentalservice.R;
 import com.example.rentalservice.models.Login;
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.widget.Toolbar;
@@ -46,7 +48,13 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.menu_logout) {
-            System.out.println("--------------a----------------");
+            AccessToken token;
+            token = AccessToken.getCurrentAccessToken();
+            if(token != null){
+                LoginManager.getInstance().logOut();
+            }
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
             finish();
         }
         return super.onOptionsItemSelected(item);
