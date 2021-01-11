@@ -7,22 +7,22 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.rentalservice.ListViewItem;
+import com.example.rentalservice.InstitutionItem;
 import com.example.rentalservice.R;
 
 import java.util.ArrayList;
 
-public class ListViewAdapter extends BaseAdapter {
-    private ArrayList<ListViewItem> listViewItems = new ArrayList<ListViewItem>();
+public class InstitutionAdapter extends BaseAdapter {
+    private ArrayList<InstitutionItem> institutionItems = new ArrayList<InstitutionItem>();
 
     @Override
     public int getCount() {
-        return listViewItems.size();
+        return institutionItems.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return listViewItems.get(position);
+        return institutionItems.get(position);
     }
 
     @Override
@@ -44,21 +44,21 @@ public class ListViewAdapter extends BaseAdapter {
         TextView numberview = convertView.findViewById(R.id.list_item_number);
         TextView locationview = convertView.findViewById(R.id.list_item_location);
 
-        ListViewItem listViewItem = listViewItems.get(position);
+        InstitutionItem institutionItem = institutionItems.get(position);
 
-        nameview.setText(listViewItem.getInstitution_name());
-        numberview.setText(listViewItem.getInstitution_number());
-        locationview.setText(listViewItem.getInstitution_location());
+        nameview.setText(institutionItem.getInstitution_name());
+        numberview.setText(institutionItem.getInstitution_number());
+        locationview.setText(institutionItem.getInstitution_location());
 
         return convertView;
     }
 
-    public void addItem(ListViewItem item){
-        listViewItems.add(item);
+    public void addItem(InstitutionItem item){
+        institutionItems.add(item);
         notifyDataSetChanged();
     }
 
     public void removeItem(int position){
-        listViewItems.remove(position);
+        institutionItems.remove(position);
     }
 }

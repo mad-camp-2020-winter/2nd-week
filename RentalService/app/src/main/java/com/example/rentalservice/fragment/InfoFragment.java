@@ -15,12 +15,12 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.SearchView;
 
-import com.example.rentalservice.ListViewItem;
+import com.example.rentalservice.InstitutionItem;
 import com.example.rentalservice.R;
 import com.example.rentalservice.activity.InfoAddActivity;
 import com.example.rentalservice.activity.InfoDetailActivity;
 import com.example.rentalservice.activity.InfoEditActivity;
-import com.example.rentalservice.adapter.ListViewAdapter;
+import com.example.rentalservice.adapter.InstitutionAdapter;
 import com.example.rentalservice.api.RetrofitAPI;
 import com.example.rentalservice.models.Institution;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -39,7 +39,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class InfoFragment extends Fragment {
 
-    ListViewAdapter adapter;
+    InstitutionAdapter adapter;
     ListView listView;
 
     public InfoFragment() {
@@ -55,7 +55,7 @@ public class InfoFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.admin_fragment_info, container, false);
         listView = v.findViewById(R.id.institution_list);
-        adapter = new ListViewAdapter();
+        adapter = new InstitutionAdapter();
         listView.setAdapter(adapter);
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -74,7 +74,7 @@ public class InfoFragment extends Fragment {
                     int i = 0;
                     String content = "";
                     while(i < institutions.size()) {
-                        ListViewItem item = new ListViewItem();
+                        InstitutionItem item = new InstitutionItem();
                         item.setInstitution_id(institutions.get(i).get_id());
                         item.setInstitution_name(institutions.get(i).getName());
                         item.setInstitution_number(institutions.get(i).getNumber());
@@ -98,10 +98,10 @@ public class InfoFragment extends Fragment {
                     listView.setAdapter(adapter);
                 }
                 else{
-                    ListViewAdapter search_adapter = new ListViewAdapter();
+                    InstitutionAdapter search_adapter = new InstitutionAdapter();
                     int num_item = adapter.getCount();
                     for(int i=0;i<num_item;i++){
-                        ListViewItem item = (ListViewItem) adapter.getItem(i);
+                        InstitutionItem item = (InstitutionItem) adapter.getItem(i);
                         if(item.getInstitution_name().contains(query) || item.getInstitution_location().contains(query) || item.getInstitution_number().contains(query)){
                             search_adapter.addItem(item);
                         }
@@ -117,10 +117,10 @@ public class InfoFragment extends Fragment {
                     listView.setAdapter(adapter);
                 }
                 else{
-                    ListViewAdapter search_adapter = new ListViewAdapter();
+                    InstitutionAdapter search_adapter = new InstitutionAdapter();
                     int num_item = adapter.getCount();
                     for(int i=0;i<num_item;i++){
-                        ListViewItem item = (ListViewItem) adapter.getItem(i);
+                        InstitutionItem item = (InstitutionItem) adapter.getItem(i);
                         if(item.getInstitution_name().contains(newText) || item.getInstitution_location().contains(newText) || item.getInstitution_number().contains(newText)){
                             search_adapter.addItem(item);
                         }
@@ -135,7 +135,7 @@ public class InfoFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ListViewItem item = (ListViewItem) parent.getItemAtPosition(position);
+                InstitutionItem item = (InstitutionItem) parent.getItemAtPosition(position);
 
                 String item_id = item.getInstitution_id();
                 String item_name = item.getInstitution_name();
@@ -166,16 +166,16 @@ public class InfoFragment extends Fragment {
                         switch (item.getItemId()){
                             case R.id.info_edit:
                                 Intent intent = new Intent(getContext(), InfoEditActivity.class);
-                                ListViewItem listViewItem = (ListViewItem) adapter.getItem(position);
+                                InstitutionItem institutionItem = (InstitutionItem) adapter.getItem(position);
                                 intent.putExtra("position",position);
-                                intent.putExtra("id",listViewItem.getInstitution_id());
-                                intent.putExtra("name",listViewItem.getInstitution_name());
-                                intent.putExtra("number",listViewItem.getInstitution_number());
-                                intent.putExtra("location",listViewItem.getInstitution_location());
+                                intent.putExtra("id", institutionItem.getInstitution_id());
+                                intent.putExtra("name", institutionItem.getInstitution_name());
+                                intent.putExtra("number", institutionItem.getInstitution_number());
+                                intent.putExtra("location", institutionItem.getInstitution_location());
                                 startActivityForResult(intent,2);
                                 break;
                             case R.id.info_delete:
-                                ListViewItem item2 = (ListViewItem) adapter.getItem(position);
+                                InstitutionItem item2 = (InstitutionItem) adapter.getItem(position);
                                 Call<Void> call2 = retrofitAPI.deleteInstitution(item2.getInstitution_id());
                                 call2.enqueue(new Callback<Void>() {
                                     @Override
@@ -237,7 +237,7 @@ public class InfoFragment extends Fragment {
                 @Override
                 public void onResponse(Call<Institution> call, Response<Institution> response) {
                     if(response.isSuccessful()){
-                        ListViewItem item = new ListViewItem();
+                        InstitutionItem item = new InstitutionItem();
                         item.setInstitution_name(name);
                         item.setInstitution_number(number);
                         item.setInstitution_location(location);
@@ -279,7 +279,7 @@ public class InfoFragment extends Fragment {
                 @Override
                 public void onResponse(Call<Institution> call, Response<Institution> response) {
                     if(response.isSuccessful()){
-                        ListViewItem item = (ListViewItem) adapter.getItem(position);
+                        InstitutionItem item = (InstitutionItem) adapter.getItem(position);
                         item.setInstitution_name(name);
                         item.setInstitution_number(number);
                         item.setInstitution_location(location);

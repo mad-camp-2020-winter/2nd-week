@@ -12,11 +12,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
-import com.example.rentalservice.ListViewItem;
+import com.example.rentalservice.InstitutionItem;
 import com.example.rentalservice.R;
-import com.example.rentalservice.activity.InfoDetailActivity;
 import com.example.rentalservice.activity.UserInfoDetailActivity;
-import com.example.rentalservice.adapter.ListViewAdapter;
+import com.example.rentalservice.adapter.InstitutionAdapter;
 import com.example.rentalservice.api.RetrofitAPI;
 import com.example.rentalservice.models.Institution;
 
@@ -30,7 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserRentalFragment extends Fragment {
 
-    ListViewAdapter adapter;
+    InstitutionAdapter adapter;
     ListView listView;
 
     public UserRentalFragment() {
@@ -47,7 +46,7 @@ public class UserRentalFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.user_fragment_rental, container, false);
         listView = v.findViewById(R.id.user_institution_list);
-        adapter = new ListViewAdapter();
+        adapter = new InstitutionAdapter();
         listView.setAdapter(adapter);
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -66,7 +65,7 @@ public class UserRentalFragment extends Fragment {
                     int i = 0;
                     String content = "";
                     while(i < institutions.size()) {
-                        ListViewItem item = new ListViewItem();
+                        InstitutionItem item = new InstitutionItem();
                         item.setInstitution_id(institutions.get(i).get_id());
                         item.setInstitution_name(institutions.get(i).getName());
                         item.setInstitution_number(institutions.get(i).getNumber());
@@ -90,10 +89,10 @@ public class UserRentalFragment extends Fragment {
                     listView.setAdapter(adapter);
                 }
                 else{
-                    ListViewAdapter search_adapter = new ListViewAdapter();
+                    InstitutionAdapter search_adapter = new InstitutionAdapter();
                     int num_item = adapter.getCount();
                     for(int i=0;i<num_item;i++){
-                        ListViewItem item = (ListViewItem) adapter.getItem(i);
+                        InstitutionItem item = (InstitutionItem) adapter.getItem(i);
                         if(item.getInstitution_name().contains(query) || item.getInstitution_location().contains(query) || item.getInstitution_number().contains(query)){
                             search_adapter.addItem(item);
                         }
@@ -109,10 +108,10 @@ public class UserRentalFragment extends Fragment {
                     listView.setAdapter(adapter);
                 }
                 else{
-                    ListViewAdapter search_adapter = new ListViewAdapter();
+                    InstitutionAdapter search_adapter = new InstitutionAdapter();
                     int num_item = adapter.getCount();
                     for(int i=0;i<num_item;i++){
-                        ListViewItem item = (ListViewItem) adapter.getItem(i);
+                        InstitutionItem item = (InstitutionItem) adapter.getItem(i);
                         if(item.getInstitution_name().contains(newText) || item.getInstitution_location().contains(newText) || item.getInstitution_number().contains(newText)){
                             search_adapter.addItem(item);
                         }
@@ -126,7 +125,7 @@ public class UserRentalFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ListViewItem item = (ListViewItem) parent.getItemAtPosition(position);
+                InstitutionItem item = (InstitutionItem) parent.getItemAtPosition(position);
 
                 String item_id = item.getInstitution_id();
                 String item_name = item.getInstitution_name();

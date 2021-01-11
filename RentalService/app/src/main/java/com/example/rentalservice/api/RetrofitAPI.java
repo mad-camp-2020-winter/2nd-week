@@ -3,6 +3,7 @@ package com.example.rentalservice.api;
 import com.example.rentalservice.models.Institution;
 import com.example.rentalservice.models.Item;
 import com.example.rentalservice.models.Login;
+import com.example.rentalservice.models.RentalDetail;
 
 import java.util.List;
 
@@ -32,6 +33,8 @@ public interface RetrofitAPI {
         Call<List<Item>> getItem();
         @GET("/item/institution_id/{institution_id}")
         Call<List<Item>> getItemByInstitution(@Path("institution_id") String institution_id);
+        @GET("/item/item_id/{item_id}")
+        Call<Item> getItemById(@Path("item_id") String item_id);
         @POST("/item")
         Call<Item> createItem(@Body Item item);
         @PUT("/item/{id}")
@@ -49,5 +52,18 @@ public interface RetrofitAPI {
         @PUT("/login/{id}")
         Call<Login> putLogin(@Path("id") String id, @Body Login login);
 
+        //RentalDetail
+        @GET("/rental_detail")
+        Call<List<RentalDetail>> getRentalDetail();
+        @GET("/rental_detail/institution_id/{institution_id}")
+        Call<List<RentalDetail>> getRentalDetailByInstitutionId(@Path("institution_id")String institution_id);
+        @GET("/rental_detail/user_phone/{user_phone}")
+        Call<List<RentalDetail>> getRentalDetailByPhone(@Path("user_phone") String user_phone);
+        @POST("/rental_detail")
+        Call<RentalDetail> createRentalDetail(@Body RentalDetail rentalDetail);
+        @PUT("/rental_detail/{rentalDetail_id}")
+        Call<RentalDetail> putRentalDetail(@Path("rentalDetail_id") String rentalDetail_id, @Body RentalDetail rentalDetail);
+        @DELETE("/rental_detail/{rentalDetail_id}")
+        Call<Void> deleteRentalDetail(@Path("rentalDetail_id") String rentalDetail_id);
 
 }
