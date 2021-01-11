@@ -7,13 +7,14 @@
     android:orientation="vertical"
     tools:context="activity.LoginActivity">
 
+
     <EditText
         android:id="@+id/login_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="ID"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         android:layout_marginTop="50dp"
         />
 
@@ -22,8 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         android:layout_marginTop="20dp"
         android:inputType="textPassword"
         />
@@ -52,22 +53,11 @@
             />
     </LinearLayout>
 
-
-
     <com.facebook.login.widget.LoginButton
         android:layout_marginTop="50dp"
         android:id="@+id/btn_facebook_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="비회원으로 시작하기"
-        android:layout_marginTop="70dp"
-        android:layout_gravity="center"
-        android:id="@+id/user_login_button"
-        />
 
 </LinearLayout>
