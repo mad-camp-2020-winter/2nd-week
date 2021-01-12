@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RentalService">
-        <activity android:name=".activity.JoinActivity"></activity>
+        <activity android:name=".activity.JoinActivity"
+            android:theme="@android:style/ThemeOverlay.Material.Dialog"/>
         <activity android:name=".activity.UserRentalSelectActivity" />
         <activity android:name=".activity.UserInfoDetailActivity" />
         <activity android:name=".activity.LoginActivity">
@@ -23,7 +24,8 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".activity.InfoEditActivity" />
+        <activity android:name=".activity.InfoEditActivity"
+            android:theme="@android:style/ThemeOverlay.Material.Dialog" />
         <activity android:name=".activity.GalleryAddActivity" />
         <activity android:name=".activity.GalleryEditActivity" />
         <activity
