@@ -14,9 +14,11 @@ import android.widget.SearchView;
 
 import com.example.rentalservice.R;
 import com.example.rentalservice.activity.AdminCommentActivity;
+import com.example.rentalservice.activity.UserMainActivity;
 import com.example.rentalservice.adapter.RentalDetailAdapter;
 import com.example.rentalservice.api.RetrofitAPI;
 import com.example.rentalservice.models.RentalDetail;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -30,9 +32,11 @@ public class UserRentalInfoFragment extends Fragment {
 
     RentalDetailAdapter rentalDetailAdapter;
     ListView listView;
+    String user_number;
 
-    public UserRentalInfoFragment() {
+    public UserRentalInfoFragment(String string) {
         // Required empty public constructor
+        user_number = string;
     }
 
     @Override
@@ -47,41 +51,29 @@ public class UserRentalInfoFragment extends Fragment {
         View v =  inflater.inflate(R.layout.user_fragment_rental_info, container, false);
         listView = v.findViewById(R.id.user_rental_detail_list);
         rentalDetailAdapter = new RentalDetailAdapter();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.249.18.173:8080")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
 
-        SearchView searchView = v.findViewById(R.id.user_rental_detail_search_bar);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        Call<List<RentalDetail>> call = retrofitAPI.getRentalDetailByPhone(user_number);
+        call.enqueue(new Callback<List<RentalDetail>>() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                rentalDetailAdapter.removeAll();
-                Call<List<RentalDetail>> call = retrofitAPI.getRentalDetailByPhone(query);
-                call.enqueue(new Callback<List<RentalDetail>>() {
-                    @Override
-                    public void onResponse(Call<List<RentalDetail>> call, Response<List<RentalDetail>> response) {
-                        if(response.isSuccessful()){
-                            for(int i=0;i<response.body().size();i++){
-                                rentalDetailAdapter.addItem(response.body().get(i));
-                            }
-                            listView.setAdapter(rentalDetailAdapter);
-                        }
+            public void onResponse(Call<List<RentalDetail>> call, Response<List<RentalDetail>> response) {
+                if(response.isSuccessful()){
+                    for(int i=0;i<response.body().size();i++){
+                        rentalDetailAdapter.addItem(response.body().get(i));
                     }
-                    @Override
-                    public void onFailure(Call<List<RentalDetail>> call, Throwable t) {
-
-                    }
-                });
-                return false;
+                    listView.setAdapter(rentalDetailAdapter);
+                }
             }
-
             @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
+            public void onFailure(Call<List<RentalDetail>> call, Throwable t) {
             }
         });
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -101,6 +93,10 @@ public class UserRentalInfoFragment extends Fragment {
                 startActivity(i);
             }
         });
+
+
+
+
         return v;
     }
 }

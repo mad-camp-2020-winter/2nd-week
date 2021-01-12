@@ -80,47 +80,47 @@ public class UserRentalFragment extends Fragment {
             }
         });
 
-//        //검색할 경우 listview layout 변경
-//        SearchView searchView = v.findViewById(R.id.user_search_bar);
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                if(query == ""){
-//                    listView.setAdapter(adapter);
-//                }
-//                else{
-//                    InstitutionAdapter search_adapter = new InstitutionAdapter();
-//                    int num_item = adapter.getCount();
-//                    for(int i=0;i<num_item;i++){
-//                        InstitutionItem item = (InstitutionItem) adapter.getItem(i);
-//                        if(item.getInstitution_name().contains(query) || item.getInstitution_location().contains(query) || item.getInstitution_number().contains(query)){
-//                            search_adapter.addItem(item);
-//                        }
-//                    }
-//                    listView.setAdapter(search_adapter);
-//                }
-//                return true;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                if(newText == ""){
-//                    listView.setAdapter(adapter);
-//                }
-//                else{
-//                    InstitutionAdapter search_adapter = new InstitutionAdapter();
-//                    int num_item = adapter.getCount();
-//                    for(int i=0;i<num_item;i++){
-//                        InstitutionItem item = (InstitutionItem) adapter.getItem(i);
-//                        if(item.getInstitution_name().contains(newText) || item.getInstitution_location().contains(newText) || item.getInstitution_number().contains(newText)){
-//                            search_adapter.addItem(item);
-//                        }
-//                    }
-//                    listView.setAdapter(search_adapter);
-//                }
-//                return true;
-//            }
-//        });
+        //검색할 경우 listview layout 변경
+        SearchView searchView = v.findViewById(R.id.user_search_bar);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if(query == ""){
+                    listView.setAdapter(adapter);
+                }
+                else{
+                    InstitutionAdapter search_adapter = new InstitutionAdapter();
+                    int num_item = adapter.getCount();
+                    for(int i=0;i<num_item;i++){
+                        InstitutionItem item = (InstitutionItem) adapter.getItem(i);
+                        if(item.getInstitution_name().contains(query) || item.getInstitution_location().contains(query) || item.getInstitution_number().contains(query)){
+                            search_adapter.addItem(item);
+                        }
+                    }
+                    listView.setAdapter(search_adapter);
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(newText == ""){
+                    listView.setAdapter(adapter);
+                }
+                else{
+                    InstitutionAdapter search_adapter = new InstitutionAdapter();
+                    int num_item = adapter.getCount();
+                    for(int i=0;i<num_item;i++){
+                        InstitutionItem item = (InstitutionItem) adapter.getItem(i);
+                        if(item.getInstitution_name().contains(newText) || item.getInstitution_location().contains(newText) || item.getInstitution_number().contains(newText)){
+                            search_adapter.addItem(item);
+                        }
+                    }
+                    listView.setAdapter(search_adapter);
+                }
+                return true;
+            }
+        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

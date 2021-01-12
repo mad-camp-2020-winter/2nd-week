@@ -13,6 +13,7 @@ import com.example.rentalservice.fragment.InfoFragment;
 import com.example.rentalservice.fragment.RentalFragment;
 import com.example.rentalservice.fragment.UserRentalFragment;
 import com.example.rentalservice.fragment.UserRentalInfoFragment;
+import com.example.rentalservice.fragment.UserRentalInfoFragment_0;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -39,7 +40,7 @@ public class UserSectionsPagerAdapter extends FragmentPagerAdapter {
                 fragment = new UserRentalFragment();
                 break;
             case 1:
-                fragment = new UserRentalInfoFragment();
+                fragment = new UserRentalInfoFragment_0();
                 break;
         }
         return fragment;
