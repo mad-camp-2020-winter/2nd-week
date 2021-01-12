@@ -19,7 +19,13 @@
         <activity android:name=".activity.LoginActivity">
 
         </activity>
+        <activity android:name=".activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -37,11 +43,6 @@
             android:theme="@android:style/ThemeOverlay.Material.Dialog" />
         <activity android:name=".activity.InfoDetailActivity" />
         <activity android:name=".activity.SelectLoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activity.UserMainActivity"
