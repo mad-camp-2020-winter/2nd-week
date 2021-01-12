@@ -19,7 +19,8 @@
             />
 
         <ListView
-            android:layout_marginTop="5dp"
+            android:divider="@color/dark_gray"
+            android:dividerHeight="2dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/admin_rental_detail_list"

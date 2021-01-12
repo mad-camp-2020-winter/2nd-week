@@ -56,7 +56,7 @@ public class RentalDetailAdapter extends BaseAdapter {
         TextView rental_institution = convertView.findViewById(R.id.rental_institution_name);
         TextView rental_item_info = convertView.findViewById(R.id.rental_item_info);
         TextView rental_approval = convertView.findViewById(R.id.rental_approval);
-
+        TextView rental_order = convertView.findViewById(R.id.rental_order);
         RentalDetail rentalDetail = RentalDetailItems.get(position);
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -84,6 +84,8 @@ public class RentalDetailAdapter extends BaseAdapter {
                         }
                     });
 
+                    rental_order.setText(String.valueOf(position + 1));
+                    rental_order.setTextColor(Color.parseColor("#000000"));
                     int date = rentalDetail.getRental_date();
                     int year = date/10000;
                     int month = (date-year*10000)/100;
@@ -92,6 +94,7 @@ public class RentalDetailAdapter extends BaseAdapter {
                     int approval = rentalDetail.getApproval();
                     if(approval == 0){
                         rental_approval.setText("승인\n대기중");
+                        rental_approval.setTextColor(Color.parseColor("#000000"));
                     }
                     else if(approval == 1){
                         rental_approval.setText("승인");

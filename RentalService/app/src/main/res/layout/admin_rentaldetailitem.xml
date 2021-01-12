@@ -2,25 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="1dp">
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:id="@+id/rental_order"
+        android:layout_width="match_parent"
+        android:layout_height="77dp"
+        android:layout_weight="90"
+        android:gravity="center"
+        android:background="@color/teal_200"
+        />
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="78dp"
+        android:layout_height="77dp"
+        android:background="@color/silver"
+        android:stretchColumns="1"
         android:layout_weight="18">
-        <TableRow
-            android:background="@color/black">
+        <TableRow>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:textSize="15dp"
-                android:layout_weight="0.1"
-                android:text="신청 날짜"
+                android:text="  신청 날짜  "
                 android:gravity="center"
+                android:background="@color/white"
+                android:layout_marginLeft="1dp"
                 android:layout_marginRight="1dp"
-                android:layout_marginBottom="1dp"
-                android:background="@color/purple_200"
                 />
 
             <TextView
@@ -29,24 +38,22 @@
                 android:layout_height="25dp"
                 android:id="@+id/rental_item_date"
                 android:textSize="15dp"
-                android:layout_weight="1"
-                android:layout_marginBottom="1dp"
-                android:layout_marginRight="1dp"
                 android:gravity="center_vertical"
+
+                android:layout_marginRight="1dp"
                 />
         </TableRow>
 
-        <TableRow
-            android:background="@color/black">
+        <TableRow>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:textSize="15dp"
-                android:layout_weight="0.1"
-                android:text="기관"
+                android:text=" 기관 "
                 android:gravity="center"
-                android:background="@color/purple_200"
-                android:layout_marginBottom="1dp"
+                android:background="@color/white"
+                android:layout_marginTop="1dp"
+                android:layout_marginLeft="1dp"
                 android:layout_marginRight="1dp"
                 />
 
@@ -56,48 +63,48 @@
                 android:layout_height="25dp"
                 android:id="@+id/rental_institution_name"
                 android:textSize="15dp"
-                android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="1dp"
+                android:layout_marginTop="1dp"
                 android:layout_marginRight="1dp"
                 />
         </TableRow>
 
-        <TableRow
-            android:background="@color/black">
+        <TableRow>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:textSize="15dp"
-                android:layout_weight="0.1"
-                android:text="물품"
+                android:text=" 물품 "
                 android:gravity="center"
+                android:background="@color/white"
+                android:layout_marginLeft="1dp"
                 android:layout_marginRight="1dp"
-                android:background="@color/purple_200"
+                android:layout_marginTop="1dp"
                 />
 
             <TextView
+                android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:id="@+id/rental_item_info"
                 android:textSize="15dp"
-                android:background="@color/white"
-                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:layout_marginRight="1dp"
+                android:layout_marginTop="1dp"
                 />
         </TableRow>
+
+
+
     </TableLayout>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="78dp"
+        android:layout_height="77dp"
         android:id="@+id/rental_approval"
         android:textSize="15dp"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="100"
+        android:layout_weight="83"
         android:gravity="center"
-        android:layout_margin="1dp"
         />
 
 
