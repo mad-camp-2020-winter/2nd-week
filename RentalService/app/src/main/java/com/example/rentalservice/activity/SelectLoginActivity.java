@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -38,8 +39,8 @@ public class SelectLoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_activity_select_login);
 
-        Button admin = findViewById(R.id.admin_login_button);
-        Button user = findViewById(R.id.user_login_button);
+        ImageButton admin = findViewById(R.id.admin_login_button);
+        ImageButton user = findViewById(R.id.user_login_button);
 
         admin.setOnClickListener(new View.OnClickListener() {
             @Override

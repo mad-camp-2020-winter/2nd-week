@@ -12,17 +12,80 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:id="@+id/user_rental_institution_name"
+            android:textSize="20dp"
+            android:gravity="center_horizontal"
+            />
+    </LinearLayout>
+
+
+
+    <ImageView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/user_rental_item_image"
+        android:src="@drawable/contruction"
+        />
+    <TextView
+        android:id="@+id/user_rental_item_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tracker"
+        android:textSize="20dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:text="수량: "
+            android:textSize="20dp"
+        />
+        <EditText
+            android:id="@+id/user_rental_item_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:inputType="number"
+            />
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:id="@+id/user_rental_item_count_hint"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
             android:text="이름: "
             android:textSize="20dp"
             />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="250dp"
+            android:layout_marginRight="50dp"
             android:id="@+id/user_rental_name"
             android:inputType="text"
             />
@@ -31,17 +94,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
             android:text="전화번호: "
             android:textSize="20dp"
             />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="120dp"
+            android:layout_marginRight="50dp"
             android:id="@+id/user_rental_phone_number"
             android:inputType="number"
             />
@@ -50,10 +115,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="30dp"
+        >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
             android:text="날짜: "
             android:textSize="20dp"
             />
@@ -64,70 +132,6 @@
             android:backgroundTint="@color/material_on_primary_emphasis_medium"
             android:textColor="@color/black" />
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="기관: "
-            android:textSize="20dp"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/user_rental_institution_name"
-            android:textSize="20dp"
-            />
-    </LinearLayout>
-
-
-
-        <ImageView
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:id="@+id/user_rental_item_image"
-            android:src="@drawable/contruction"
-            />
-        <TextView
-            android:id="@+id/user_rental_item_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tracker"
-            android:textSize="20dp"
-            android:gravity="center"
-            />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="수량: "
-                android:textSize="20dp"
-            />
-            <EditText
-                android:id="@+id/user_rental_item_count"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:inputType="number"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:layout_weight="1"
-                android:id="@+id/user_rental_item_count_hint"
-                />
-        </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -151,6 +155,5 @@
             android:id="@+id/user_rental_cancel_button"
             />
     </LinearLayout>
-
 
 </LinearLayout>

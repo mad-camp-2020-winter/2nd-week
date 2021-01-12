@@ -11,6 +11,7 @@ import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
         Toolbar toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
-
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("공공장비 온라인센터 (공무원 모드)");
     }
 
     @Override

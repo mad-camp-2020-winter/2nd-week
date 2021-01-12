@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.RenderNode;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,6 +24,7 @@ import com.example.rentalservice.models.Institution;
 import com.example.rentalservice.models.Item;
 import com.example.rentalservice.models.RentalDetail;
 
+import java.io.ByteArrayInputStream;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,6 +57,16 @@ public class UserRentalSelectActivity extends AppCompatActivity {
         TextView it_name = findViewById(R.id.user_rental_item_name);
         TextView it_count_hint = findViewById(R.id.user_rental_item_count_hint);
         ImageView it_photo = findViewById(R.id.user_rental_item_image);
+        if(it_photo != null) {
+            //bitmap -> stream -> image 변환
+            byte[] bytePlainOrg = Base64.decode(item_photo, 0);
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(bytePlainOrg);
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            it_photo.setImageBitmap(bitmap);
+        }
+        else{
+            it_photo.setImageResource(R.drawable.contruction);
+        }
 
         EditText it_count = findViewById(R.id.user_rental_item_count);
         EditText user_name = findViewById(R.id.user_rental_name);

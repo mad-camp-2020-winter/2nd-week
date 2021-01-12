@@ -1,5 +1,6 @@
 package com.example.rentalservice.activity;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -42,6 +43,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_activity_login);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("공공장비 온라인센터 (공무원 모드)");
 
         mCallbackManager = CallbackManager.Factory.create();
         mLoginCallback = new LoginCallback();

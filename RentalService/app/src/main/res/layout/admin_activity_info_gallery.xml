@@ -17,6 +17,7 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:src="@drawable/contruction"
+            android:background="@drawable/ripple_just_effect"
             android:id="@+id/photo"
             />
     </LinearLayout>
