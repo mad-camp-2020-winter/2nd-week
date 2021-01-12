@@ -86,7 +86,7 @@
             android:layout_marginRight="10dp"
             android:textSize="20dp"
             android:id="@+id/info_add_institution_number"
-            android:inputType="number"
+            android:inputType="phone"
             />
     </LinearLayout>
 

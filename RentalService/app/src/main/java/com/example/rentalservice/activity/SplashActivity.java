@@ -9,6 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
@@ -19,6 +20,8 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         Animation mAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate); // 선글라스
         mAnim.setInterpolator(getApplicationContext(),android.R.anim.accelerate_interpolator);

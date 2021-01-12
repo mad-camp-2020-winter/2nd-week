@@ -17,7 +17,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
             android:id="@+id/user_rental_institution_name"
             android:textSize="20dp"
             android:gravity="center_horizontal"

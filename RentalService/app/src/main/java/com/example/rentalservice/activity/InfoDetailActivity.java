@@ -81,7 +81,7 @@ public class InfoDetailActivity extends AppCompatActivity implements GalleryAdap
                 .build();
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
 
-        Call<List<Item>> call = retrofitAPI.getItem();
+        Call<List<Item>> call = retrofitAPI.getItemByInstitution(institution_id);
         call.enqueue(new Callback<List<Item>>() {
             @Override
             public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
