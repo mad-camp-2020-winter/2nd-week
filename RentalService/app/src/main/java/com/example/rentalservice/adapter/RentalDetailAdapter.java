@@ -1,6 +1,7 @@
 package com.example.rentalservice.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +69,7 @@ public class RentalDetailAdapter extends BaseAdapter {
             @Override
             public void onResponse(Call<Institution> call, Response<Institution> response) {
                 if(response.isSuccessful()){
-                    rental_institution.setText("기관: " + response.body().getName());
+                    rental_institution.setText(response.body().getName());
                     rentalDetail.setInstitution_name(response.body().getName());
                     Call<Item> itemCall = retrofitAPI.getItemById(rentalDetail.getItem_id());
                     itemCall.enqueue(new Callback<Item>() {
@@ -87,16 +88,20 @@ public class RentalDetailAdapter extends BaseAdapter {
                     int year = date/10000;
                     int month = (date-year*10000)/100;
                     int day = (date-year*10000-month*100);
-                    rental_date.setText("신청 날짜: " + year + "년 " + month + "월 " + day + "일");
+                    rental_date.setText( year + "년 " + month + "월 " + day + "일");
                     int approval = rentalDetail.getApproval();
                     if(approval == 0){
-                        rental_approval.setText("승인대기중");
+                        rental_approval.setText("승인\n대기중");
                     }
                     else if(approval == 1){
                         rental_approval.setText("승인");
+                        String green = "#17E209";
+                        rental_approval.setTextColor(Color.parseColor(green));
                     }
                     else{
                         rental_approval.setText("반려");
+                        String red = "#DB2B30";
+                        rental_approval.setTextColor(Color.parseColor(red));
                     }
                 }
             }

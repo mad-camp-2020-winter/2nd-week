@@ -28,11 +28,11 @@
         <activity android:name=".activity.GalleryEditActivity" />
         <activity
             android:name=".activity.AdminCommentActivity"
-            android:theme="@android:style/Theme.Dialog"/>
+            android:theme="@android:style/ThemeOverlay.Material.Dialog"/>
 
         <activity
             android:name=".activity.InfoAddActivity"
-            android:theme="@android:style/Theme.Dialog" />
+            android:theme="@android:style/ThemeOverlay.Material.Dialog" />
         <activity android:name=".activity.InfoDetailActivity" />
         <activity android:name=".activity.SelectLoginActivity">
             <intent-filter>

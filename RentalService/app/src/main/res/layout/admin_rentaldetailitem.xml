@@ -1,55 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="1dp">
 
-    <LinearLayout
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:id="@+id/rental_item_date"
-            android:textSize="20dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            />
+        android:layout_height="78dp"
+        android:layout_weight="18">
+        <TableRow
+            android:background="@color/black">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:textSize="15dp"
+                android:layout_weight="0.1"
+                android:text="신청 날짜"
+                android:gravity="center"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"
+                android:background="@color/purple_200"
+                />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:id="@+id/rental_institution_name"
-            android:textSize="20dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            />
-    </LinearLayout>
+            <TextView
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:id="@+id/rental_item_date"
+                android:textSize="15dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="1dp"
+                android:layout_marginRight="1dp"
+                android:gravity="center_vertical"
+                />
+        </TableRow>
 
-    <LinearLayout
+        <TableRow
+            android:background="@color/black">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:textSize="15dp"
+                android:layout_weight="0.1"
+                android:text="기관"
+                android:gravity="center"
+                android:background="@color/purple_200"
+                android:layout_marginBottom="1dp"
+                android:layout_marginRight="1dp"
+                />
+
+            <TextView
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:id="@+id/rental_institution_name"
+                android:textSize="15dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="1dp"
+                android:layout_marginRight="1dp"
+                />
+        </TableRow>
+
+        <TableRow
+            android:background="@color/black">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:textSize="15dp"
+                android:layout_weight="0.1"
+                android:text="물품"
+                android:gravity="center"
+                android:layout_marginRight="1dp"
+                android:background="@color/purple_200"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:id="@+id/rental_item_info"
+                android:textSize="15dp"
+                android:background="@color/white"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:layout_marginRight="1dp"
+                />
+        </TableRow>
+    </TableLayout>
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:id="@+id/rental_item_info"
-            android:textSize="20dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:id="@+id/rental_approval"
-            android:textSize="20dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            />
-    </LinearLayout>
+        android:layout_height="78dp"
+        android:id="@+id/rental_approval"
+        android:textSize="15dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="100"
+        android:gravity="center"
+        android:layout_margin="1dp"
+        />
 
 
 </LinearLayout>

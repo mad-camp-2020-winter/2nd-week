@@ -65,7 +65,9 @@ public class AdminCommentActivity extends Activity {
         TextView View_item_info = findViewById(R.id.comment_item_name);
         TextView View_rental_date = findViewById(R.id.comment_rental_date);
         Spinner View_approval = findViewById(R.id.comment_approval_spinner);
+        TextView View_approval_text = findViewById(R.id.comment_approval_text);
         EditText View_comment = findViewById(R.id.comment_comment);
+        TextView View_comment_text = findViewById(R.id.comment_text_View);
         Button save = findViewById(R.id.comment_save);
 
         if(is_user){save.setText("닫기");}
@@ -75,10 +77,19 @@ public class AdminCommentActivity extends Activity {
         View_user_phone.setText("신청자 번호: " + user_phone);
         View_apply_date.setText("신청한 날짜: " + String.valueOf(apply_year) + "년 " + String.valueOf(apply_month) + "월 " + String.valueOf(apply_day) + "일");
         View_rental_date.setText("대여 기간: " +String.valueOf(rental_year) + "년 " + String.valueOf(rental_month) + "월 " + String.valueOf(rental_day) + "일");
-        View_comment.setText(comment);
+
 
         if(is_user){
             View_comment.setEnabled(false);
+            View_comment.setVisibility(View.INVISIBLE);
+            View_comment_text.setVisibility(View.VISIBLE);
+            View_comment_text.setText(comment);
+        }
+        else{
+            View_comment.setEnabled(true);
+            View_comment.setVisibility(View.VISIBLE);
+            View_comment_text.setVisibility(View.INVISIBLE);
+            View_comment.setText(comment);
         }
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -104,7 +115,7 @@ public class AdminCommentActivity extends Activity {
             @Override
             public void onResponse(Call<Item> call, Response<Item> response) {
                 if(response.isSuccessful()){
-                    View_item_info.setText("신청 물품: " + response.body().getName() + "(" + String.valueOf(item_count) + ")");
+                    View_item_info.setText("신청 물품: " + response.body().getName() + "(수량: " + String.valueOf(item_count) + " )");
                 }
             }
             @Override
@@ -117,8 +128,16 @@ public class AdminCommentActivity extends Activity {
         View_approval.setSelection(approval[0]);
         if(is_user){
             View_approval.setEnabled(false);
+            View_approval.setVisibility(View.INVISIBLE);
+            View_approval_text.setVisibility(View.VISIBLE);
+            if(approval[0] == 0){View_approval_text.setText("승인대기중");}
+            else if(approval[0] == 1){View_approval_text.setText("승인");}
+            else{View_approval_text.setText("반려");}
         }
         else {
+            View_approval.setEnabled(true);
+            View_approval.setVisibility(View.VISIBLE);
+            View_approval_text.setVisibility(View.INVISIBLE);
             View_approval.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
