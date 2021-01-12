@@ -1,6 +1,7 @@
 package com.example.rentalservice.activity;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -46,6 +47,8 @@ public class InfoDetailActivity extends AppCompatActivity implements GalleryAdap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_activity_info_detail);
         Intent i = getIntent();
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("공공장비 온라인센터 (공무원 모드)");
 
         institution_id = i.getStringExtra("id");
         String name = i.getStringExtra("name");

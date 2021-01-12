@@ -1,5 +1,6 @@
 package com.example.rentalservice.activity;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -44,6 +45,9 @@ public class UserRentalSelectActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_activity_rental_select);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("공공장비 온라인센터 (사용자 모드)");
 
         Intent i = getIntent();
         String institution_name = i.getStringExtra("institution_name");

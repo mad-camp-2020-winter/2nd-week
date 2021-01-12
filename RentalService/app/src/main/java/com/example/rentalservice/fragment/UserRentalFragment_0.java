@@ -2,15 +2,13 @@ package com.example.rentalservice.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SearchView;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.rentalservice.InstitutionItem;
 import com.example.rentalservice.R;
@@ -27,12 +25,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class UserRentalFragment extends Fragment {
+public class UserRentalFragment_0 extends Fragment {
 
     InstitutionAdapter adapter;
     ListView listView;
 
-    public UserRentalFragment() {
+    public UserRentalFragment_0() {
 
     }
 

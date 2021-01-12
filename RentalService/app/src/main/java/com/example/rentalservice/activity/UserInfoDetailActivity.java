@@ -1,6 +1,7 @@
 package com.example.rentalservice.activity;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -39,6 +40,8 @@ public class UserInfoDetailActivity extends AppCompatActivity implements Gallery
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_activity_info_detail);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("공공장비 온라인센터 (사용자 모드)");
 
         Intent i = getIntent();
 
