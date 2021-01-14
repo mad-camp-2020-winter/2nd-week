@@ -1,58 +1,58 @@
-module.exports = function(app, Item)
+module.exports = function(app, Institution)
 {
-    // GET ALL ITEM
-    app.get('/item', function(req,res){
-        Item.find(function(err, item){
+    // GET ALL INSTITUTION
+    app.get('/institution', function(req,res){
+        Institution.find(function(err, institutions){
             if(err) return res.status(500).send({error: 'database failure'});
-            res.json(item);
+            res.json(institutions);
         })
     });
 
-    // GET SINGLE ITEM
-    app.get('/item/:item_id', function(req, res){
-        Item.findOne({_id: req.params.institution_id}, function(err, item){
+    // GET SINGLE INSTITUTION
+    app.get('/institution/:institution_id', function(req, res){
+        Institution.findOne({_id: req.params.institution_id}, function(err, institution){
             if(err) return res.status(500).json({error: err});
-            if(!item) return res.status(404).json({error: 'item not found'});
-            res.json(item);
+            if(!institution) return res.status(404).json({error: 'institution not found'});
+            res.json(institution);
         })
     });
 
-    // GET ITEM BY NAME
-    app.get('/item/name/:name', function(req, res){
-        Item.find({name: req.params.name}, {_id: 0, name: 1, photo: 1, count: 1},  function(err, item){
+    // GET INSTITUTION BY NAME
+    app.get('/institution/name/:name', function(req, res){
+        Institution.find({name: req.params.name}, {_id: 1, name: 1, number: 1, location: 1},  function(err, institutions){
             if(err) return res.status(500).json({error: err});
-            if(item.length === 0) return res.status(404).json({error: 'item not found'});
-            res.json(item);
+            if(institutions.length === 0) return res.status(404).json({error: 'institution not found'});
+            res.json(institutions);
         })
     });
 
-    // CREATE ITEM
-    app.post('/item', function(req, res){
-        var item = new Item();
-        item.name = req.body.name;
-        item.photo = req.body.photo;
-        item.count = req.body.count;
+    // CREATE INSTITUTION
+    app.post('/institution', function(req, res){
+        var institution = new Institution();
+        institution.name = req.body.name;
+        institution.number = req.body.number;
+        institution.location = req.body.location;
         // institution.published_date = new Date(req.body.published_date);
 
-        item.save(function(err){
+        institution.save(function(err){
             if(err){
                 console.error(err);
                 res.json({result: 0});
                 return;
             }
 
-            res.json({result: 1});
+            res.json(institution);
 
         });
     });
 
-    // UPDATE THE ITEM
-    app.put('/item/:item_id', function(req, res){
-        Item.update({ _id: req.params.item_id }, { $set: req.body }, function(err, output){
+    // UPDATE THE INSTITUTION
+    app.put('/institution/:institution_id', function(req, res){
+        Institution.update({ _id: req.params.institution_id }, { $set: req.body }, function(err, output){
             if(err) res.status(500).json({ error: 'database failure' });
             console.log(output);
-            if(!output.n) return res.status(404).json({ error: 'item not found' });
-            res.json( { message: 'item updated' } );
+            if(!output.n) return res.status(404).json({ error: 'institution not found' });
+            res.json( { message: 'institution updated' } );
         })
     /* [ ANOTHER WAY TO UPDATE THE institution ]
             institution.findById(req.params.institution_id, function(err, institution){
@@ -69,9 +69,9 @@ module.exports = function(app, Item)
     */
     });
 
-    // DELETE ITEM
-    app.delete('/item/:item_id', function(req, res){
-        Item.remove({ _id: req.params.item_id }, function(err, output){
+    // DELETE INSTITUTION
+    app.delete('/institution/:institution_id', function(req, res){
+        Institution.remove({ _id: req.params.institution_id }, function(err, output){
             if(err) return res.status(500).json({ error: "database failure" });
 
             /* ( SINCE DELETE OPERATION IS IDEMPOTENT, NO NEED TO SPECIFY )

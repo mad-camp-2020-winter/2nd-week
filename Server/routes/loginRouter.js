@@ -1,61 +1,56 @@
-module.exports = function(app, RentalDetail)
+module.exports = function(app, Login)
 {
     // GET ALL ITEM
-    app.get('/rentalDetail', function(req,res){
-        RentalDetail.find(function(err, rentalDetail){
+    app.get('/login', function(req,res){
+        Login.find(function(err, login){
             if(err) return res.status(500).send({error: 'database failure'});
-            res.json(rentalDetail);
+            res.json(login);
         })
     });
 
     // GET SINGLE ITEM
-    app.get('/rentalDetail/:rentalDetail_id', function(req, res){
-        RentalDetail.findOne({_id: req.params.institution_id}, function(err, rentalDetail){
+    app.get('/login/:id', function(req, res){
+        Login.findOne({id: req.params.id}, function(err, login){
             if(err) return res.status(500).json({error: err});
-            if(!rentalDetail) return res.status(404).json({error: 'rentalDetail not found'});
-            res.json(rentalDetail);
+            if(!login) return res.status(404).json({error: 'login not found'});
+            res.json(login);
         })
     });
 
     // GET ITEM BY NAME
-    app.get('/rentalDetail/name/:name', function(req, res){
-        RentalDetail.find({name: req.params.name}, {_id: 0, phone: 1, item_id: 1, institution_id: 1, approval: 1, date: 1},  function(err, rentalDetail){
+    app.get('/login/id/:id', function(req, res){
+        Login.find({id: req.params.id}, {_id: 0, id: 1, password: 1},  function(err, login){
             if(err) return res.status(500).json({error: err});
-            if(rentalDetail.length === 0) return res.status(404).json({error: 'rentalDetail not found'});
-            res.json(rentalDetail);
+            if(login.length === 0) return res.status(404).json({error: 'login not found'});
+            res.json(login);
         })
     });
 
     // CREATE ITEM
-    app.post('/rentalDetail', function(req, res){
-        var rentalDetail = new RentalDetail();
-        rentalDetail.phone = req.body.phone;
-        rentalDetail.item_id = req.body.item_id;
-        rentalDetail.institution_id = req.body.institution_id;
-        rentalDetail.approval = req.body.approval;
-        
-        // date는 default로 서버에 찍히는 시각 저장
-        // rentalDetail.date = req.body.date; 
+    app.post('/login', function(req, res){
+        var login = new Login();
+        login.id = req.body.id;
+        login.password = req.body.password;
 
-        rentalDetail.save(function(err){
+        login.save(function(err){
             if(err){
                 console.error(err);
                 res.json({result: 0});
                 return;
             }
 
-            res.json({result: 1});
+            res.json(login);
 
         });
     });
 
     // UPDATE THE ITEM
-    app.put('/rentalDetail/:rentalDetail_id', function(req, res){
-        RentalDetail.update({ _id: req.params.rentalDetail_id }, { $set: req.body }, function(err, output){
+    app.put('/login/:login_id', function(req, res){
+        Login.update({ _id: req.params.login_id }, { $set: req.body }, function(err, output){
             if(err) res.status(500).json({ error: 'database failure' });
             console.log(output);
-            if(!output.n) return res.status(404).json({ error: 'rentalDetail not found' });
-            res.json( { message: 'rentalDetail updated' } );
+            if(!output.n) return res.status(404).json({ error: 'login not found' });
+            res.json( { message: 'login updated' } );
         })
     /* [ ANOTHER WAY TO UPDATE THE institution ]
             institution.findById(req.params.institution_id, function(err, institution){
@@ -73,8 +68,8 @@ module.exports = function(app, RentalDetail)
     });
 
     // DELETE ITEM
-    app.delete('/rentalDetail/:rentalDetail_id', function(req, res){
-        RentalDetail.remove({ _id: req.params.rentalDetail_id }, function(err, output){
+    app.delete('/login/:login_id', function(req, res){
+        Login.remove({ _id: req.params.login_id }, function(err, output){
             if(err) return res.status(500).json({ error: "database failure" });
 
             /* ( SINCE DELETE OPERATION IS IDEMPOTENT, NO NEED TO SPECIFY )

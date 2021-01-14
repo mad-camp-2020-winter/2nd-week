@@ -14,7 +14,7 @@ db.once('open', function(){
     console.log("Connected to mongod server");
 });
 
-mongoose.connect('mongodb://localhost:27017/testDB');
+mongoose.connect('mongodb://localhost:27017/realDB');
 
 // DEFINE MODEL
 var Institution = require('./models/institution');
@@ -24,8 +24,13 @@ var RentalDetail = require('./models/rentalDetail');
 
 // [CONFIGURE APP TO USE bodyParser]
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
+// app.use(bodyParser.json());
+// app.use(express.json()); // 혹은 bodyParser.json() 
+// app.use(express.urlencoded()); // 혹은 bodyParser.urlencoded()
+// app.use(express.json({ limit : "50mb" })); 
+// app.use(express.urlencoded({ limit:"50mb", extended: false }));
+app.use(bodyParser({limit: '50mb'}));
+ 
 // [CONFIGURE SERVER PORT]
 
 var port = process.env.PORT || 8080;
